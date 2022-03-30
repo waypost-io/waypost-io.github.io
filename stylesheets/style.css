@@ -158,7 +158,7 @@ body {
 /* Header */
 #header {
   align-items: center;
-  background-color: var(--white);
+  background-color: var(--offwhite);
   border-bottom: 1px solid var(--gray-200);
   display: flex;
   justify-content: space-between;
@@ -281,7 +281,7 @@ body {
 
 /* TOC */
 #toc {
-  background-color: var(--white);
+  background-color: var(--offwhite);
   border-right: 1px solid var(--gray-200);
   bottom: 0;
   left: calc(var(--toc-width) * -1);
@@ -327,7 +327,7 @@ body {
 
 #toc .bullet {
   align-items: center;
-  background-color: #fff;
+  background-color: var(--offwhite);
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -368,6 +368,10 @@ body {
 }
 
 /* Case Study */
+#case-study-content {
+  background-color: var(--offwhite);
+}
+
 #case-study-content img {
   max-width: 100%;
 }
