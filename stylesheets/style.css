@@ -38,6 +38,19 @@
        url('./fonts/montserrat-v23-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
        url('./fonts/montserrat-v23-latin-regular.svg#Montserrat') format('svg'); /* Legacy iOS */
 }
+/* montserrat-800 - latin */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 800;
+  src: url('./fonts/montserrat-v23-latin-800.eot'); /* IE9 Compat Modes */
+  src: local(''),
+       url('./fonts/montserrat-v23-latin-800.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('./fonts/montserrat-v23-latin-800.woff2') format('woff2'), /* Super Modern Browsers */
+       url('./fonts/montserrat-v23-latin-800.woff') format('woff'), /* Modern Browsers */
+       url('./fonts/montserrat-v23-latin-800.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('./fonts/montserrat-v23-latin-800.svg#Montserrat') format('svg'); /* Legacy iOS */
+}
 
 :root {
   /* Theme */
@@ -553,10 +566,7 @@ body {
   background-position: 50% calc(50% / 3 + 4rem);
 }
 
-#start-here div.static-logo-dark {
-  display: none;
-}
-
+#start-here div.static-logo-dark,
 #start-here div.static-logo-light {
   display: none;
 }
@@ -605,13 +615,33 @@ body {
   align-items: center;
   display: flex;
   justify-content: center;
+  position: relative;
+}
+
+#start-here .bg-turquoise::before,
+#start-here .bg-violet::before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
+
+#start-here .static-logo-dark.bg-turquoise::before {
+  background-color: rgba(7, 192, 197, 0.25);
+}
+
+#start-here .static-logo-dark.bg-violet::before {
+  background-color: rgba(185, 78, 156, 0.25);
 }
 
 #start-here h2,
 #start-here h2 {
   font-size: 2rem;
   font-weight: 800;
-  color: var(--white);
+  color: var(--offwhite);
+  position: relative;
 }
 
 #start-here h2.sm-header {
