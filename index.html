@@ -1,552 +1,512 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
 
-    <!-- BEGIN Info -->
-    <meta
-      name="description"
-      content="Waypost - An open-source feature flag management system that specializes in A/B Testing"
-    />
-    <meta name="title" property="og:title" content="Waypost" />
-    <meta property="og:type" content="Website" />
-    <meta name="image" property="og:image" content="images/thumb.png" />
-    <meta
-      name="description"
-      property="og:description"
-      content="Waypost - An open-source feature flag management system that specializes in A/B Testing"
-    />
-    <meta name="author" content="Waypost" />
-    <!-- END Info -->
-    <!-- BEGIN favicon -->
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="images/favicon/apple-touch-icon.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="images/favicon/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="images/favicon/favicon-16x16.png"
-    />
-    <link rel="manifest" href="images/favicon/site.webmanifest" />
-    <link rel="shortcut icon" href="images/favicon/favicon.ico" />
-    <meta name="msapplication-TileColor" content="#ffffff" />
-    <meta
-      name="msapplication-config"
-      content="images/favicon/browserconfig.xml"
-    />
-    <meta name="theme-color" content="#ffffff" />
-    <!-- END favicon -->
+<head>
+  <meta charset="UTF-8" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Waypost</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    />
-    <link rel="stylesheet" href="stylesheets/reset.css" />
-    <link rel="stylesheet" href="stylesheets/style.css" />
-    <link rel="stylesheet" href="stylesheets/responsive.css" />
-  </head>
-  <body>
-    <header class="mobile-menu-closed">
-      <div id="header">
-        <a href="/">
-          <img src="images/logo/Waypost_graphic_color.svg"/>
-          <h1>Waypost</h1>
-        </a>
-        <nav>
-          <a href="#start-here" class="selected">Start Here</a>
-          <a href="#case-study">Case Study</a>
-          <a href="#presentation">Presentation</a>
-          <a href="#our-team">Our Team</a>
-          <a href="/documentation">Docs</a>
-          <a
-            href="https://github.com/waypost-io"
-            target="_blank"
-            class="icon"
-            ><i class="fab fa-github"></i
-          ></a>
-        </nav>
-        <div id="menu">
-          <button type="button">
-            <svg
-              id="mobile-open"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-            <svg
-              id="mobile-close"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
-        </div>
-      </div>
-      <div id="header-buffer"></div>
-      <div id="mobile-menu">
+  <!-- BEGIN Info -->
+  <meta name="description"
+    content="Waypost - An open-source feature flag management system that specializes in A/B Testing" />
+  <meta name="title" property="og:title" content="Waypost" />
+  <meta property="og:type" content="Website" />
+  <meta name="image" property="og:image" content="images/thumb.png" />
+  <meta name="description" property="og:description"
+    content="Waypost - An open-source feature flag management system that specializes in A/B Testing" />
+  <meta name="author" content="Waypost" />
+  <!-- END Info -->
+  <!-- BEGIN favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png" />
+  <link rel="manifest" href="images/favicon/site.webmanifest" />
+  <link rel="shortcut icon" href="images/favicon/favicon.ico" />
+  <meta name="msapplication-TileColor" content="#ffffff" />
+  <meta name="msapplication-config" content="images/favicon/browserconfig.xml" />
+  <meta name="theme-color" content="#ffffff" />
+  <!-- END favicon -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Waypost</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="stylesheet" href="stylesheets/reset.css" />
+  <link rel="stylesheet" href="stylesheets/style.css" />
+  <link rel="stylesheet" href="stylesheets/responsive.css" />
+</head>
+
+<body>
+  <header class="mobile-menu-closed">
+    <div id="header">
+      <a href="/">
+        <img src="images/logo/Waypost_graphic_color.svg" />
+        <h1>Waypost</h1>
+      </a>
+      <nav>
         <a href="#start-here" class="selected">Start Here</a>
         <a href="#case-study">Case Study</a>
         <a href="#presentation">Presentation</a>
         <a href="#our-team">Our Team</a>
-          <a href="/documentation">Docs</a
-          >
-        <a href="https://github.com/waypost-io" target="_blank"
-          ><i class="fab fa-github"></i> GitHub</a
-        >
-      </div>
-    </header>
-
-    <div id="start-here" class="main-section">
-      <div class="h-full">
-        <div class="bg-offwhite static-logo-color"></div>
-        <div class="bg-black">
-          <h4 id="hero-text">
-            <span class="text-skyblue">Waypost</span> is an open-source <span class="text-skyblue">feature flagging</span> platform specializing in <span class="text-skyblue">A/B testing</span>
-          </h4>
-        </div>
-      </div>
-      <div class="h-full">
-        <div class="bg-turquoise static-logo-dark">
-          <h2>Easy to Use & Deploy</h2>
-        </div>
-        <div class="bg-turquoise">
-          <h2 class="sm-header">Easy to Manage & Deploy</h2>
-          <p>
-            Easy to use with plenty of documentation, get started with Waypost in seconds by running <code>docker-compose up</code>
-          </p>
-        </div>
-      </div>
-      <div class="h-full">
-        <div class="bg-violet static-logo-dark">
-          <h2>Customizable and Flexible</h2>
-        </div>
-        <div class="bg-violet">
-          <h2 class="sm-header">Modular and Flexible</h2>
-          <p>
-            Waypost is completely open-source and self-hosted, and can be customized according to your needs.
-          </p>
-        </div>
+        <a href="/documentation">Docs</a>
+        <a href="https://github.com/waypost-io" target="_blank" class="icon"><i class="fab fa-github"></i></a>
+      </nav>
+      <div id="menu">
+        <button type="button">
+          <svg id="mobile-open" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg id="mobile-close" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
       </div>
     </div>
+    <div id="header-buffer"></div>
+    <div id="mobile-menu">
+      <a href="#start-here" class="selected">Start Here</a>
+      <a href="#case-study">Case Study</a>
+      <a href="#presentation">Presentation</a>
+      <a href="#our-team">Our Team</a>
+      <a href="/documentation">Docs</a>
+      <a href="https://github.com/waypost-io" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+    </div>
+  </header>
 
-    <aside id="toc">
-      <ul>
+  <div id="start-here" class="main-section">
+    <div class="h-full">
+      <div class="bg-offwhite static-logo-color"></div>
+      <div class="bg-black">
+        <h4 id="hero-text">
+          <span class="text-skyblue">Waypost</span> is an open-source <span class="text-skyblue">feature flagging</span>
+          platform specializing in <span class="text-skyblue">A/B testing</span>
+        </h4>
+      </div>
+    </div>
+    <div class="h-full">
+      <div class="bg-turquoise static-logo-dark">
+        <h2>Easy to Use & Deploy</h2>
+      </div>
+      <div class="bg-turquoise">
+        <h2 class="sm-header">Easy to Manage & Deploy</h2>
+        <p>
+          Easy to use with plenty of documentation, get started with Waypost in seconds by running
+          <code>docker-compose up</code>
+        </p>
+      </div>
+    </div>
+    <div class="h-full">
+      <div class="bg-violet static-logo-dark">
+        <h2>Customizable and Flexible</h2>
+      </div>
+      <div class="bg-violet">
+        <h2 class="sm-header">Modular and Flexible</h2>
+        <p>
+          Waypost is completely open-source and self-hosted, and can be customized according to your needs.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <aside id="toc">
+    <ul>
+      <!-- Section 1 -->
+      <li data-section="section-1" class="selected">
+        <a href="#section-1">
+          <div>
+            <div class="bullet">
+              <div></div>
+            </div>
+            <p>Waypost and Solar Flair</p>
+          </div>
+        </a>
+      </li>
+      <!-- Section 2 -->
+      <li data-section="section-2">
+        <a href="#section-2">
+          <div>
+            <div class="bullet">
+              <div></div>
+            </div>
+            <p>Two Versions of a Site</p>
+          </div>
+        </a>
+      </li>
+      <li data-section="section-2" class="subitem">
+        <a href="#section-2-1">
+          <div>
+            <div class="bullet">
+              <div></div>
+            </div>
+            <p>Canary Deployments</p>
+          </div>
+        </a>
+      </li>
+      <li data-section="section-2" class="subitem">
+        <a href="#section-2-2">
+          <div>
+            <div class="bullet">
+              <div></div>
+            </div>
+            <p>Feature Flagging</p>
+          </div>
+        </a>
+      </li>
+      <!-- Section 3 -->
+      <li data-section="section-3">
+        <a href="#section-3">
+          <div>
+            <div class="bullet">
+              <div></div>
+            </div>
+            <p>A/B Testing</p>
+          </div>
+        </a>
+      </li>
+      <li data-section="section-3" class="subitem">
+        <a href="#section-3-1">
+          <div>
+            <div class="bullet">
+              <div></div>
+            </div>
+            <p>A/B Test Results</p>
+          </div>
+        </a>
+      </li>
+      <li data-section="section-3" class="subitem">
+        <a href="#section-3-2">
+          <div>
+            <div class="bullet">
+              <div></div>
+            </div>
+            <p>Challenges of A/B Testing</p>
+          </div>
+        </a>
+      </li>
+      <li data-section="section-3" class="subitem">
+        <a href="#section-3-3">
+          <div>
+            <div class="bullet">
+              <div></div>
+            </div>
+            <p>Ways to Implement A/B Tests</p>
+          </div>
+        </a>
+      </li>
+      <!-- Section 4 -->
+      <li data-section="section-4">
+        <a href="#section-4">
+          <div>
+            <div class="bullet">
+              <div></div>
+            </div>
+            <p>Existing Solutions</p>
+          </div>
+        </a>
+      </li>
+      <!-- Section 5 -->
+      <li data-section="section-5">
+        <a href="#section-5">
+          <div>
+            <div class="bullet">
+              <div></div>
+            </div>
+            <p>Introducing Waypost</p>
+          </div>
+        </a>
+      </li>
+      <li data-section="section-5" class="subitem">
+        <a href="#section-5-1">
+          <div>
+            <div class="bullet">
+              <div></div>
+            </div>
+            <p>How Feature Flagging with Waypost Works</p>
+          </div>
+        </a>
+      </li>
+      <li data-section="section-5" class="subitem">
+        <a href="#section-5-2">
+          <div>
+            <div class="bullet">
+              <div></div>
+            </div>
+            <p>How A/B Testing with Waypost Works</p>
+          </div>
+        </a>
+      </li>
+      <li data-section="section-5" class="subitem">
+        <a href="#section-5-3">
+          <div>
+            <div class="bullet">
+              <div></div>
+            </div>
+            <p>Why Waypost is the Right Choice</p>
+          </div>
+        </a>
+      </li>
+      <!-- Section 6 -->
+      <li data-section="section-6">
+        <a href="#section-6">
+          <div>
+            <div class="bullet">
+              <div></div>
+            </div>
+            <p>Engineering Decisions</p>
+          </div>
+        </a>
+      </li>
+      <li data-section="section-6">
+        <a href="#section-6-1">
+          <div>
+            <div class="bullet">
+              <div></div>
+            </div>
+            <p>Hosted vs. Self-Hosted</p>
+          </div>
+        </a>
+      </li>
+      <li data-section="section-6">
+        <a href="#section-6-2">
+          <div>
+            <div class="bullet">
+              <div></div>
+            </div>
+            <p>Collecting User Event Data</p>
+          </div>
+        </a>
+      </li>
+      <li data-section="section-6">
+        <a href="#section-6-2">
+          <div>
+            <div class="bullet">
+              <div></div>
+            </div>
+            <p>Communication Between Manager and Flag Provider</p>
+          </div>
+        </a>
+      </li>
+      <li data-section="section-6">
+        <a href="#section-6-3">
+          <div>
+            <div class="bullet">
+              <div></div>
+            </div>
+            <p>Providing Feature Flag Data to Client</p>
+          </div>
+        </a>
+      </li>
+      <li data-section="section-6">
+        <a href="#section-6-3">
+          <div>
+            <div class="bullet">
+              <div></div>
+            </div>
+            <p>Load Testing</p>
+          </div>
+        </a>
+      </li>
+      <!-- Section 7 -->
+      <li data-section="section-7">
+        <a href="#section-7">
+          <div>
+            <div class="bullet">
+              <div></div>
+            </div>
+            <p>Future Work</p>
+          </div>
+        </a>
+      </li>
+      <li data-section="section-7" class="subitem">
+        <a href="#section-7-1">
+          <div>
+            <div class="bullet">
+              <div></div>
+            </div>
+            <p>Supporting More Data Sources</p>
+          </div>
+        </a>
+      </li>
+      <li data-section="section-7" class="subitem">
+        <a href="#section-7-2">
+          <div>
+            <div class="bullet">
+              <div></div>
+            </div>
+            <p>Creating More SDKs</p>
+          </div>
+        </a>
+      </li>
+      <li data-section="section-7" class="subitem">
+        <a href="#section-7-3">
+          <div>
+            <div class="bullet">
+              <div></div>
+            </div>
+            <p>Separating Feature Flags by App</p>
+          </div>
+        </a>
+      </li>
+      <li data-section="section-7" class="subitem">
+        <a href="#section-7-4">
+          <div>
+            <div class="bullet">
+              <div></div>
+            </div>
+            <p>Login and User Accounts</p>
+          </div>
+        </a>
+      </li>
+      <!-- Section 8 -->
+      <li data-section="section-8">
+        <a href="#section-8">
+          <div>
+            <div class="bullet">
+              <div></div>
+            </div>
+            <p>Conclusion</p>
+          </div>
+        </a>
+      </li>
+      <!-- Section 9 -->
+      <li data-section="section-9">
+        <a href="#section-9">
+          <div>
+            <div class="bullet">
+              <div></div>
+            </div>
+            <p>References</p>
+          </div>
+        </a>
+      </li>
+      <!-- Section 10 -->
+      <li data-section="section-10">
+        <a href="#section-10">
+          <div>
+            <div class="bullet">
+              <div></div>
+            </div>
+            <p>Glossary</p>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </aside>
+
+  <div id="case-study" class="main-section">
+    <div id="case-study-content">
+      <div class="prose prose-xl">
+        <h1>Case Study</h1>
+        <!-- Case study goes here -->
         <!-- Section 1 -->
-        <li data-section="section-1" class="selected">
-          <a href="#section-1">
-            <div>
-              <div class="bullet"><div></div></div>
-              <p>Waypost and Solar Flair</p>
-            </div>
-          </a>
-        </li>
-        <!-- Section 2 -->
-        <li data-section="section-2">
-          <a href="#section-2">
-            <div>
-              <div class="bullet"><div></div></div>
-              <p>Two Versions of a Site</p>
-            </div>
-          </a>
-        </li>
-        <li data-section="section-2" class="subitem">
-          <a href="#section-2-1">
-            <div>
-              <div class="bullet"><div></div></div>
-              <p>Canary Deployments</p>
-            </div>
-          </a>
-        </li>
-        <li data-section="section-2" class="subitem">
-          <a href="#section-2-2">
-            <div>
-              <div class="bullet"><div></div></div>
-              <p>Feature Flagging</p>
-            </div>
-          </a>
-        </li>
-        <!-- Section 3 -->
-        <li data-section="section-3">
-          <a href="#section-3">
-            <div>
-              <div class="bullet"><div></div></div>
-              <p>A/B Testing</p>
-            </div>
-          </a>
-        </li>
-        <li data-section="section-3" class="subitem">
-          <a href="#section-3-1">
-            <div>
-              <div class="bullet"><div></div></div>
-              <p>A/B Test Results</p>
-            </div>
-          </a>
-        </li>
-        <li data-section="section-3" class="subitem">
-          <a href="#section-3-2">
-            <div>
-              <div class="bullet"><div></div></div>
-              <p>Challenges of A/B Testing</p>
-            </div>
-          </a>
-        </li>
-        <li data-section="section-3" class="subitem">
-          <a href="#section-3-3">
-            <div>
-              <div class="bullet"><div></div></div>
-              <p>Ways to Implement A/B Tests</p>
-            </div>
-          </a>
-        </li>
-        <!-- Section 4 -->
-        <li data-section="section-4">
-          <a href="#section-4">
-            <div>
-              <div class="bullet"><div></div></div>
-              <p>Existing Solutions</p>
-            </div>
-          </a>
-        </li>
-        <!-- Section 5 -->
-        <li data-section="section-5">
-          <a href="#section-5">
-            <div>
-              <div class="bullet"><div></div></div>
-              <p>Introducing Waypost</p>
-            </div>
-          </a>
-        </li>
-        <li data-section="section-5" class="subitem">
-          <a href="#section-5-1">
-            <div>
-              <div class="bullet"><div></div></div>
-              <p>How Feature Flagging with Waypost Works</p>
-            </div>
-          </a>
-        </li>
-        <li data-section="section-5" class="subitem">
-          <a href="#section-5-2">
-            <div>
-              <div class="bullet"><div></div></div>
-              <p>How A/B Testing with Waypost Works</p>
-            </div>
-          </a>
-        </li>
-        <li data-section="section-5" class="subitem">
-          <a href="#section-5-3">
-            <div>
-              <div class="bullet"><div></div></div>
-              <p>Why Waypost is the Right Choice</p>
-            </div>
-          </a>
-        </li>
-        <!-- Section 6 -->
-        <li data-section="section-6">
-          <a href="#section-6">
-            <div>
-              <div class="bullet"><div></div></div>
-              <p>Engineering Decisions</p>
-            </div>
-          </a>
-        </li>
-        <li data-section="section-6">
-          <a href="#section-6-1">
-            <div>
-              <div class="bullet"><div></div></div>
-              <p>Hosted vs. Self-Hosted</p>
-            </div>
-          </a>
-        </li>
-        <li data-section="section-6">
-          <a href="#section-6-2">
-            <div>
-              <div class="bullet"><div></div></div>
-              <p>Collecting User Event Data</p>
-            </div>
-          </a>
-        </li>
-        <li data-section="section-6">
-          <a href="#section-6-2">
-            <div>
-              <div class="bullet"><div></div></div>
-              <p>Communication Between Manager and Flag Provider</p>
-            </div>
-          </a>
-        </li>
-        <li data-section="section-6">
-          <a href="#section-6-3">
-            <div>
-              <div class="bullet"><div></div></div>
-              <p>Providing Feature Flag Data to Client</p>
-            </div>
-          </a>
-        </li>
-        <li data-section="section-6">
-          <a href="#section-6-3">
-            <div>
-              <div class="bullet"><div></div></div>
-              <p>Load Testing</p>
-            </div>
-          </a>
-        </li>
-        <!-- Section 7 -->
-        <li data-section="section-7">
-          <a href="#section-7">
-            <div>
-              <div class="bullet"><div></div></div>
-              <p>Future Work</p>
-            </div>
-          </a>
-        </li>
-        <li data-section="section-7" class="subitem">
-          <a href="#section-7-1">
-            <div>
-              <div class="bullet"><div></div></div>
-              <p>Supporting More Data Sources</p>
-            </div>
-          </a>
-        </li>
-        <li data-section="section-7" class="subitem">
-          <a href="#section-7-2">
-            <div>
-              <div class="bullet"><div></div></div>
-              <p>Creating More SDKs</p>
-            </div>
-          </a>
-        </li>
-        <li data-section="section-7" class="subitem">
-          <a href="#section-7-3">
-            <div>
-              <div class="bullet"><div></div></div>
-              <p>Separating Feature Flags by App</p>
-            </div>
-          </a>
-        </li>
-        <li data-section="section-7" class="subitem">
-          <a href="#section-7-4">
-            <div>
-              <div class="bullet"><div></div></div>
-              <p>Login and User Accounts</p>
-            </div>
-          </a>
-        </li>
-        <!-- Section 8 -->
-        <li data-section="section-8">
-          <a href="#section-8">
-            <div>
-              <div class="bullet"><div></div></div>
-              <p>Conclusion</p>
-            </div>
-          </a>
-        </li>
-        <!-- Section 9 -->
-        <li data-section="section-9">
-          <a href="#section-9">
-            <div>
-              <div class="bullet"><div></div></div>
-              <p>References</p>
-            </div>
-          </a>
-        </li>
-        <!-- Section 10 -->
-        <li data-section="section-10">
-          <a href="#section-10">
-            <div>
-              <div class="bullet"><div></div></div>
-              <p>Glossary</p>
-            </div>
-          </a>
-        </li>
-      </ul>
-    </aside>
-
-    <div id="case-study" class="main-section">
-      <div id="case-study-content">
-        <div class="prose prose-xl">
-          <h1>Case Study</h1>
-          <!-- Case study goes here -->
-          <!-- Section 1 -->
-          <h2 id="section-1"></h2>
-          <p>
-            Coming Soon!
-          </p>
-        </div>
+        <h2 id="section-1"></h2>
+        <p>
+          Coming Soon!
+        </p>
       </div>
     </div>
+  </div>
 
-    <div id="presentation" class="main-section">
-      <div class="bg-gray">
-        <h2>Presentation</h2>
-        <iframe
-          src="https://www.youtube-nocookie.com/embed/sEuvyCopWZU?rel=0&showinfo=0"
-          title="YouTube video player"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-        ></iframe>
-      </div>
+  <div id="presentation" class="main-section">
+    <div class="bg-gray">
+      <h2>Presentation</h2>
+      <iframe src="https://www.youtube-nocookie.com/embed/sEuvyCopWZU?rel=0&showinfo=0" title="YouTube video player"
+        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
     </div>
+  </div>
 
-    <div id="our-team" class="main-section">
+  <div id="our-team" class="main-section">
+    <div>
       <div>
         <div>
-          <div>
-            <h2>Meet our team</h2>
-            <p class="text-xl text-gray-300">
-              We are currently looking for opportunities. If you liked what you
-              saw and want to talk more, please reach out!
-            </p>
-          </div>
-          <ul class="people">
-            <li class="profile">
-              <img
-                class="mx-auto h-40 w-40 rounded-full xl:w-56 xl:h-56 lazy"
-                data-src="images/team/julia.jpg"
-                alt=""
-              />
-              <div>
-                <div>
-                  <h3>Julia Martin</h3>
-                  <p>Seattle, WA</p>
-                </div>
-
-                <ul class="social">
-                  <li>
-                    <a href="mailto:juliadmartin720@gmail.com" target="_blank"
-                      ><i class="fas fa-envelope"></i
-                    ></a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://www.linkedin.com/in/juliadmartin/"
-                      target="_blank"
-                      ><i class="fab fa-linkedin"></i
-                    ></a>
-                  </li>
-                  <li>
-                    <a href="https://github.com/julia-martin" target="_blank"
-                      ><i class="fab fa-github"></i
-                    ></a>
-                  </li>
-                  <li>
-                    <a href="https://juliamartin.dev" target="_blank"
-                      ><i class="fas fa-globe"></i
-                    ></a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-
-            <li class="profile">
-              <img
-                class="mx-auto h-40 w-40 rounded-full xl:w-56 xl:h-56 lazy"
-                data-src="images/team/sean.jpg"
-                alt=""
-              />
-              <div>
-                <div>
-                  <h3>Sean Richardson</h3>
-                  <p>Washington, DC</p>
-                </div>
-
-                <ul class="social">
-                  <li>
-                    <a href="mailto:sean.richardson.umd18@gmail.com" target="_blank"
-                      ><i class="fas fa-envelope"></i
-                    ></a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://www.linkedin.com/in/sean-richardson-093212ba/"
-                      target="_blank"
-                      ><i class="fab fa-linkedin"></i
-                    ></a>
-                  </li>
-                  <li>
-                    <a href="https://github.com/seanrichardson95" target="_blank"
-                      ><i class="fab fa-github"></i
-                    ></a>
-                  </li>
-                  <li>
-                    <a href="https://seanrichardson.dev/" target="_blank"
-                      ><i class="fas fa-globe"></i
-                    ></a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-
-            <li class="profile">
-              <img
-                class="mx-auto h-40 w-40 rounded-full xl:w-56 xl:h-56 lazy"
-                data-src="images/team/caleb.png"
-                alt=""
-              />
-              <div>
-                <div>
-                  <h3>Caleb Smith</h3>
-                  <p>Utah</p>
-                </div>
-
-                <ul class="social">
-                  <li>
-                    <a href="mailto:" target="_blank"
-                      ><i class="fas fa-envelope"></i
-                    ></a>
-                  </li>
-                  <li>
-                    <a
-                      href=""
-                      target="_blank"
-                      ><i class="fab fa-linkedin"></i
-                    ></a>
-                  </li>
-                  <li>
-                    <a href="" target="_blank"
-                      ><i class="fab fa-github"></i
-                    ></a>
-                  </li>
-                  <li>
-                    <a href="" target="_blank"
-                      ><i class="fas fa-globe"></i
-                    ></a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-          </ul>
+          <h2>Meet our team</h2>
+          <p class="text-xl text-gray-300">
+            We are currently looking for opportunities. If you liked what you
+            saw and want to talk more, please reach out!
+          </p>
         </div>
+        <ul class="people">
+          <li class="profile">
+            <img class="mx-auto h-40 w-40 rounded-full xl:w-56 xl:h-56 lazy" data-src="images/team/julia.jpg" alt="" />
+            <div>
+              <div>
+                <h3>Julia Martin</h3>
+                <p>Seattle, WA</p>
+              </div>
+
+              <ul class="social">
+                <li>
+                  <a href="mailto:juliadmartin720@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
+                </li>
+                <li>
+                  <a href="https://www.linkedin.com/in/juliadmartin/" target="_blank"><i
+                      class="fab fa-linkedin"></i></a>
+                </li>
+                <li>
+                  <a href="https://github.com/julia-martin" target="_blank"><i class="fab fa-github"></i></a>
+                </li>
+                <li>
+                  <a href="https://juliamartin.dev" target="_blank"><i class="fas fa-globe"></i></a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="profile">
+            <img class="mx-auto h-40 w-40 rounded-full xl:w-56 xl:h-56 lazy" data-src="images/team/sean.jpg" alt="" />
+            <div>
+              <div>
+                <h3>Sean Richardson</h3>
+                <p>Washington, DC</p>
+              </div>
+
+              <ul class="social">
+                <li>
+                  <a href="mailto:sean.richardson.umd18@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
+                </li>
+                <li>
+                  <a href="https://www.linkedin.com/in/sean-richardson-093212ba/" target="_blank"><i
+                      class="fab fa-linkedin"></i></a>
+                </li>
+                <li>
+                  <a href="https://github.com/seanrichardson95" target="_blank"><i class="fab fa-github"></i></a>
+                </li>
+                <li>
+                  <a href="https://seanrichardson.dev/" target="_blank"><i class="fas fa-globe"></i></a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="profile">
+            <img class="mx-auto h-40 w-40 rounded-full xl:w-56 xl:h-56 lazy" data-src="images/team/caleb.png" alt="" />
+            <div>
+              <div>
+                <h3>Caleb Smith</h3>
+                <p>Utah</p>
+              </div>
+
+              <ul class="social">
+                <li>
+                  <a href="mailto: smithcaleb042@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
+                </li>
+                <li>
+                  <a href="https://www.linkedin.com/in/caleb-r-smith-855071171/" target="_blank"><i
+                      class="fab fa-linkedin"></i></a>
+                </li>
+                <li>
+                  <a href="https://github.com/calebrs" target="_blank"><i class="fab fa-github"></i></a>
+                </li>
+                <li>
+                  <a href="https://calebrs.github.io/" target="_blank"><i class="fas fa-globe"></i></a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
+  </div>
 
-    <script src="javascripts/script.js"></script>
-  </body>
+  <script src="javascripts/script.js"></script>
+</body>
