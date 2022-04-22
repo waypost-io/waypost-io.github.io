@@ -388,18 +388,6 @@ code {
   padding: 4rem 1rem;
 }
 
-.prose-xl {
-  font-size: 1.25rem;
-  line-height: 1.8;
-}
-
-.prose-xl h1 {
-  font-size: 2.8em;
-  margin-top: 0;
-  margin-bottom: 0.8571429em;
-  line-height: 1;
-}
-
 #case-study-content .prose h1::before,
 #case-study-content .prose h2::before,
 #case-study-content .prose h3::before,
@@ -416,9 +404,9 @@ code {
 .prose h1 {
   color: #1a202c;
   font-weight: 800;
-  font-size: 2.25em;
+  font-size: 2.25rem;
   margin-top: 0;
-  margin-bottom: 0.8888889em;
+  margin-bottom: 0.8888889rem;
   line-height: 1.1111111;
 }
 
@@ -428,6 +416,7 @@ code {
 .prose h4 {
   color: var(--violet);
   margin-top: 3rem;
+  font-weight: 600;
 }
 
 .prose a {
@@ -467,6 +456,32 @@ code {
 .prose code:before,
 .prose code:after {
   content: "";
+}
+
+.prose-xl {
+  font-size: 1.25rem;
+  line-height: 1.8;
+}
+
+.prose-xl h1 {
+  font-size: 2.8rem;
+  margin-top: 0;
+  margin-bottom: 0.8571429rem;
+  line-height: 1;
+}
+
+.prose-xl h2 {
+  font-size: 1.6666667rem;
+  margin-top: 1.8666667rem;
+  margin-bottom: 1.0666667rem;
+  line-height: 1.3333333;
+}
+
+.prose-xl h3 {
+  font-size: 1.3333333rem;
+  margin-top: 1.6666667rem;
+  margin-bottom: 0.6666667rem;
+  line-height: 1.5;
 }
 
 /* Our Team */
@@ -590,7 +605,7 @@ code {
   color: var(--oxford-blue);
   font-weight: 800;
   font-size: 2.25rem;
-  margin-bottom: 1em;
+  margin-bottom: 1rem;
 }
 
 /* start-here */
