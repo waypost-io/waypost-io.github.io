@@ -172,10 +172,6 @@
     display: flex;
   }
 
-  #start-here .h-full {
-    height: calc(100vh - 4rem);
-  }
-
   #start-here h2.sm-header {
     display: none;
   }
