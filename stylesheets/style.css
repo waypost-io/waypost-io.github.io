@@ -155,8 +155,21 @@ body {
   background-color: yellow;
 }
 
+b {
+  font-weight: bold;
+}
+
 code {
   font-family: monospace;
+}
+
+ul, ol {
+  margin: 15px;
+}
+
+li {
+  margin: 1rem 0;
+  line-height: 1.5rem;
 }
 
 /* Header */
