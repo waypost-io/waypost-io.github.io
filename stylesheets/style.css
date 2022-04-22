@@ -348,16 +348,16 @@ li {
 #toc .bullet {
   align-items: center;
   background-color: var(--offwhite);
-  border-radius: 50%;
+  border-radius: 99%;
   display: flex;
   justify-content: center;
-  height: 1.25rem;
-  width: 1.25rem;
+  min-height: 1.25rem;
+  min-width: 1.25rem;
 }
 
 #toc .bullet div {
   background-color: var(--gray-300);
-  border-radius: 50%;
+  border-radius: 99%;
   height: 0.5rem;
   width: 0.5rem;
 }
