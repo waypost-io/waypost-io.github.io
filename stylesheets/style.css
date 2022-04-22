@@ -727,6 +727,7 @@ li {
   font-weight: 800;
   color: var(--offwhite);
   position: relative;
+  text-shadow: 0 0 7px #20232b, 0 0 10px #20232b, 0 0 21px #20232b;
 }
 
 #start-here h2.sm-header {
