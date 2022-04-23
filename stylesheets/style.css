@@ -89,10 +89,6 @@ body {
   height: 100%;
 }
 
-.h-full {
-  height: calc(100vh - 4rem);
-}
-
 .bg-offwhite {
   background-color: var(--offwhite);
 }
@@ -578,6 +574,10 @@ li {
   margin-left: 1rem;
 }
 
+.social {
+  list-style-type: none;
+}
+
 #our-team .social li {
   color: var(--gray-400);
   width: 1.75rem;
@@ -673,7 +673,7 @@ li {
 }
 
 #start-here > div div:last-child > img {
-  max-width: 100%;
+  max-width: calc(100% - 2rem);
 }
 
 #start-here > div div:last-child > img.waypost {
@@ -725,20 +725,20 @@ li {
   background-color: rgba(185, 78, 156, 0.25);
 }
 
-#start-here h2,
 #start-here h2 {
   font-size: 2rem;
   font-weight: 800;
   color: var(--offwhite);
   position: relative;
-  text-shadow: 0 0 7px #20232b, 0 0 10px #20232b, 0 0 21px #20232b;
   margin: 0 24px;
+  text-shadow: 0 0 7px #20232b, 0 0 10px #20232b, 0 0 21px #20232b;
 }
 
 #start-here h2.sm-header {
   font-size: 2rem;
   font-weight: 800;
   color: var(--white);
+  text-shadow: none;
 }
 
 #start-here video.pad {

@@ -141,6 +141,10 @@
   }
 
   /* Start Here */
+  #start-here .h-full {
+    height: calc(100vh - 4rem);
+  }
+
   #start-here > div {
     display: flex;
     flex-direction: row;
