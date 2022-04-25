@@ -521,8 +521,45 @@
         <p>The solution Solar Flair is looking for is experimentation, also known as A/B testing.</p>
         <h2 id="section-2">2. A/B Testing</h2>
         <h3 id="section-2-1">2.1 What is A/B Testing?</h3>
+        <p>A/B testing is the practice of testing two or more versions of a feature at once, in which a random group of
+          users is assigned to receive one version, and another random group of users is assigned the other version, for
+          a certain period of time. The A/B test can be considered the most basic kind of randomized controlled
+          experiment. In its simplest form, there are two treatments and one acts as the control for the other [1].</p>
+        <img src="./images/diagrams/2.1_A_and_b_features.png" alt="A and B features">
         <h3 id="section-2-2">2.2 Interpreting Results</h3>
+        <p>After an A/B test has finished running, one can analyze the results to make a data-driven decision. Every
+          experiment should have a primary metric, and possibly secondary metrics, by which it will be evaluated. The
+          aggregate values for these metrics get collected for the test group and the control group for comparison. One
+          can use statistics to determine if there was a statistically significant change in the metrics or not.
+          Statistical significance is determined by a statistic called a “p-value”. With this information, the team can
+          conclude whether the new feature being tested was “successful” or not, and make a decision whether to rollout
+          the feature to their entire userbase, to remove it, or to continue to run more experiments. For example, if
+          Solar Flair obtained a statistically significant increase in form completion rate with their new quote
+          feature, then they could confidently roll out the new feature.</p>
+        <img src="./images/diagrams/2.2_AB_decision.png" alt="A/B decision">
         <h3 id="section-2-3">2.3 Challenges of A/B Testing</h3>
+        <p>As A/B testing requires a large amount of data to work, implementing A/B testing comes with several
+          challenges. There are two primary categories that the challenges of A/B testing fall under: engineering
+          challenges and statistics challenges. </p>
+        <h4>2.3.1 Engineering Challenges</h4>
+        <p>From an engineering standpoint, developers must contend with the challenges of: </p>
+        <p>How to assign users randomly into groups? Users must be randomly assigned so that the two groups can be
+          fairly compared, and so the two groups can be roughly the same size. </p>
+        <p>How to keep track of what group they were in? Each user must be given the same treatment on each visit.</p>
+        <p>How to log user events? Each time an event that we are interested in occurs, it must be logged to the
+          database along with relevant information regarding who, what, and where. In addition, one must log when a user
+          is exposed to an experiment. This will result in a huge volume of writes to the database.</p>
+        <p>How to pull the metrics to analyze afterward? Each metric is calculated differently and some may rely on the
+          same events, requiring the event data to be queryable and accessible. The metric calculation should also be
+          automated so that one does not have to manually query the metrics each time.</p>
+        <h4>2.3.2 Statistical Challenges</h4>
+        <p>From a statistics standpoint, the main challenges are:</p>
+        <p>Designing the experiment correctly such that we can gain meaningful results from it. It may be surprising how
+          easy it is to design an experiment incorrectly. For example, when running multiple experiments at the same
+          time, one must ensure that different experiments do not influence each other’s results.</p>
+        <p>Determining which statistical tests to run on the data. There are many different types of statistical tests
+          to choose from, each with different purposes. Therefore, picking which statistical tests to run must be done
+          thoughtfully and with care.</p>
         <h2 id="section-3">3. Implementing Two Versions of a Site</h2>
         <h3 id="section-3-1">3.1 Possible Solution: Multiple Deployments</h3>
         <h3 id="section-3-2">3.2 Possible Solution: Feature Flags</h3>
