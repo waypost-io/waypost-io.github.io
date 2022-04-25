@@ -643,8 +643,99 @@
         <p>2. Serving a user the same treatment on each visit.</p>
         <p>Solar Flair can solve these two challenges by using feature flags with a toggle router.</p>
         <h2 id="section-4">4. Existing Solutions</h2>
+        <p>Solar Flair now knows they want to integrate feature flags into their web app and use them to perform A/B
+          tests. What they don’t know is exactly how to implement this new system. Do they want to build it from scratch
+          or integrate with an existing solution? If they want to build it, how much time and effort is needed to
+          accomplish that?</p>
         <h3 id="section-4-1">4.1 DIY</h3>
+        <p>If they decide to build the system, they’ll need to accomplish three things:</p>
+        <p>1. Persistently store their feature flag data.</p>
+        <p>2. Connect the flag data to their application to dynamically serve the two versions of their site.</p>
+        <p>3. Collect user event data and analyze it to gain insights to drive their decision making.</p>
+        <h4>4.1.1 Config File</h4>
+        <p>The easiest and simplest way to store all the flag data in one place is by using a configuration file. This
+          file would contain the flag data in a data structure and could look something like the code below:</p>
+        <!-- Code snippet -->
+        <p>The trade-offs with the config file are:</p>
+        <p>Flags can’t be set dynamically, they’re “on” or “off” for all users.</p>
+        <p>Every time the config file is updated the application must be redeployed for the changes to take effect.</p>
+        <p>The config file’s shortcomings make this option unappealing.</p>
+        <h4>4.1.2 Database</h4>
+        <img src="./images/diagrams/4.1.2_application_to_database.png" alt="applicaiton to database">
+        <img src="./images/diagrams/4.1.2_flag_in_database_table.png" alt="application to database table">
+        <p>A slightly better option for storing flag data is by using a database. With this configuration, Solar Flair’s
+          app would query the database each time a flag’s status is needed and updates to the flags would be made using
+          SQL commands, which would be cumbersome for non-technical employees to manage feature flags. The main benefit
+          of this architecture is it would allow flag data to be updated without redeployment. [4]</p>
+        <p>However, it still doesn’t solve the core problem of dynamically evaluating the flags. In addition, neither of
+          these two options address the analysis of the data. What Solar Flair needs is something bigger and more
+          robust. A place to easily manage their flags and their experiments. What they need is a feature flag
+          management service, specifically one that can handle A/B testing.</p>
+        <h4>4.1.3 Building a Feature Flag Management Service</h4>
+        <p>Feature flag management services are platforms that allow developers to view all their feature flags in one
+          place, usually through a user interface. They make the process of performing CRUD operations on the flags
+          easier to implement and keep track of. In addition, the services often contain tools, such as custom flag
+          evaluations, allowing developers to get more out of their feature flags.</p>
+        <p>To build this system oneself, one will need to build both the feature flagging and A/B testing services. One
+          must first design and build the architecture to manage and evaluate feature flags. This will require several
+          components such as a frontend, backend, database, and SDK at a minimum. </p>
+        <p>1. A **frontend interface** will enable both developers and non-technical members of the organization to
+          easily manage feature flags and experiments.</p>
+        <p>2. A **backend** server and database will enable persistent storage of data.</p>
+        <p>3. An **SDK** that lives in the organization’s app should return the “on” or “off” status for a given user
+          based on factors like rollout percentage. It is typically necessary to have SDKs on both the client and
+          server, since there are features to be managed on both.</p>
+        <p>4. The SDKs also need to receive **updated feature flag data** when a change is made from the frontend,
+          ideally in real-time so that features can be shut off immediately if needed.</p>
+        <img src="./images/diagrams/4.1.3_diy_architecture.png" alt="diy architecture">
+        <h4>4.1.4 Building the A/B Testing Functionality</h4>
+        <p>In addition to the infrastructure for feature flag management, one must also build the A/B testing
+          functionality to gain insights from changes in user event data. There are 4 steps to this:</p>
+        <p>1. Collect the user event data.</p>
+        <p>2. Process the data.</p>
+        <p>3. Run statistical analysis.</p>
+        <p>4. Display the results.</p>
+        <p>For the first step, a system must be in place to log user events and save them to a database using ETL
+          pipelines. This infrastructure can be built in-house, or a 3rd party service like Mixpanel can be used.
+          However, using a 3rd party service will offer less flexibility.</p>
+        <p>Then, the data must be processed by querying the event data and calculating metrics for each experiment and
+          treatment.</p>
+        <p>Next, the metrics are used as inputs in statistical tests to determine whether the change in them is likely
+          due to the change in feature or to random chance.</p>
+        <p>Lastly, the results are displayed, ideally with some visualization.</p>
+        <p>Having a data scientist on a team to give guidance would make the last three steps go smoothly. For example,
+          a data scientist would know which statistical tests to run depending on the data types, how the metrics need
+          to be measured and aggregated, and which kinds of visuals are most helpful. Without someone with that
+          knowledge, a team may have trouble building an A/B testing solution.</p>
+        <h4>4.1.5 Trade-offs</h4>
+        <p>Building your own platform for feature flagging and experimentation comes with several benefits:</p>
+        <p>Flexibility over how it is deployed, and ability to customize what features to include and how they are
+          implemented. For example, the team could choose whether to use classical statistics or Bayesian statistics for
+          the experiment analysis.</p>
+        <p>Keep data in-house, reducing concerns around privacy and security</p>
+        <p>However, this approach also comes with a set of trade-offs:</p>
+        <p>Time and resources to build the feature flag management and A/B testing platform</p>
+        <p>Responsibility to maintain the system into the future</p>
+        <p>As we saw earlier, building an A/B testing platform completely from scratch is extremely hard and time
+          consuming (expect at least 2,000 hours of work to get something decent) [5]. In other words, building the
+          platform yourself is not free. </p>
+        <p>One must also consider the accuracy and reliability of the system. Maintaining reliable analytics pipelines
+          is more difficult than one may think [6]. Therefore, as the ones who created the system, the team will also be
+          responsible for maintaining it into the future.</p>
         <h3 id="section-4-2">4.2 Paid Solutions</h3>
+        <p>The other option is to use a 3rd party feature flagging and A/B testing platform that handles the engineering
+          aspects for you so that your team does not have to invest time into building and maintaining this system. Some
+          well-known players are LaunchDarkly and Optimizely. Both are feature-rich and reliable. LaunchDarkly is a
+          popular feature flag management platform that offers a wide range of features, such as A/B testing, targeting
+          users by attribute, integrations with productivity tools, workflow automation, and a support team. Optimizely
+          is a similar platform which focuses primarily on A/B testing. However, there are several trade-offs that come
+          with this approach:</p>
+        <p>Since they are built by an external team, there is not as much flexibility for customization as an in-house
+          platform. They would not be able to change what features to include and their implementation, or the types of
+          statistical tests to use.</p>
+        <p>Using one of these services entails letting a third party **store** user data, which some business may not be
+          comfortable with or legally allowed to.</p>
+        <p>They typically cost a monthly fee and can be out of budget for smaller companies. </p>
         <h2 id="section-5">5. Waypost</h2>
         <h3 id="section-5-1">5.1 Architecture Overview</h3>
         <h3 id="section-5-2">5.2 Manager Application</h3>
