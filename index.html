@@ -561,8 +561,87 @@
           to choose from, each with different purposes. Therefore, picking which statistical tests to run must be done
           thoughtfully and with care.</p>
         <h2 id="section-3">3. Implementing Two Versions of a Site</h2>
+        <p>Before Solar Flair can place their users into “test” and “control” groups, they must be able to serve the
+          groups different versions of their website at the same time. There are two common ways to implement this:</p>
+        <p>1. Have multiple deployments of the website running and route users to one or the other.</p>
+        <p>2. Use feature flags to render their site one way or the other at run time.</p>
         <h3 id="section-3-1">3.1 Possible Solution: Multiple Deployments</h3>
+        <p>This strategy is implemented by having two versions of an application running in production at once. The new
+          version of the application is deployed to a set percentage of the organization’s servers. A router (usually a
+          load balancer) will route users to the two sets of servers. The “rollout percentage,” the percentage of the
+          users get routed to one group vs. the other, can be set to any percentage the user wants, whether it be 50/50,
+          10/90, etc.</p>
+        <img src="./images/diagrams/3.1_multiple_deployments.png" alt="multiple deployments">
+        <p>From here, if the new version proves to be an improvement, then the new version of the application is pushed
+          to all the servers. If instead it has a negative effect on business metrics, then all servers with the new
+          version are rolled back.</p>
+        <p>This approach allows an organization to run two versions of their website, collect user data on both
+          versions, and compare the results. However, there are some trade-offs to this strategy.</p>
+        <h4>3.1.1 Trade-off #1: Full redeploy to fix bugs</h4>
+        <p>Using multiple deployments for serving two versions of a website requires a full take-down and redeploy to
+          fix a bug. If there’s a critical bug in the new version of the application, the following steps must be
+          completed:</p>
+        <p>1. The rollout percentage must first be set to 0% so all requests will be handled by the group of machines
+          with the old version of the application.</p>
+        <p>2. The machines serving the new version must be rolled-back to handle traffic without crashing.</p>
+        <p>3. The load balancer must be updated to allow rolled-back servers to receive requests again.</p>
+        <p>4. Once the bug is fixed, the new version must be deployed, the rollout percentage must be set and the router
+          must be configured accordingly.</p>
+        <p>Many of these steps can be automated, but if the organization is not using a 3rd-party, they must spend
+          resources to do that. For a small organization with minimal resources, this is undesirable.</p>
+        <h4>3.1.2 Trade-off #2: Complexity when testing multiple features</h4>
+        <p>As discussed earlier, if two versions of a feature are being served with multiple deployments means there are
+          two versions of the entire application running in production. If another feature is also being tested at that
+          time, that means another version of the application is needed to test it assuming that the two features being
+          tested do not overlap.</p>
+        <p>For example, if Solar Flair also wants to test out a new contact form that is hosted on a separate page from
+          their quote form, then those two new features would not overlap. If instead they wanted to test changing the
+          form’s submit button and wanted to see how each combination of the form and button affected user behavior,
+          they’d need four total deployments.</p>
+        <img src="./images/diagrams/3.1.2_multivariate_testing.png" alt="multivariate testing">
+        <p>Regardless of whether the additional new features being tested are overlapping or not, more tests results in:
+        </p>
+        <p>More deployed copies of an application.</p>
+        <p>More versions of an application to keep track of, which can lead to human errors, such as implementing a
+          change on the wrong version of the application.</p>
+        <p>A large company with a large infrastructure and some DevOps engineers may not be be bothered by additional
+          deployments of code and keeping track of the different versions of the application. But it would be more
+          challenging for smaller organizations to implement this solution.</p>
+        <p>Solar Flair only has a handful of developers and servers. Therefore it would not be wise to implement this
+          strategy given the trade-offs. Fortunately for them, there’s a way to serve users two different versions of a
+          site with just one instance of an application, through using feature flags.</p>
         <h3 id="section-3-2">3.2 Possible Solution: Feature Flags</h3>
+        <p>“A feature flag is a software development process used to enable or disable functionality remotely without
+          deploying code” [2].</p>
+        <p>A feature flag is conditional logic connected to a remote service that can alter its flow without a
+          redeployment. One can think of a feature flag as a toggle that determines whether a feature is turned “on” or
+          “off.” If the flag is turned “on”, the conditional returns true and the user receives one version of the
+          application. If the flag is turned “off”, the conditional returns false and they receive another.</p>
+        <img src="./images/diagrams/3.2_flag_evaluation.png" alt="Flag evaluation">
+        <!-- Code snippet here -->
+        <p>One can wrap as much or as little code in the feature flag as they like. It could be something big like a
+          completely different UI, or something small, like different colors on a “Checkout” button.</p>
+        <p>Feature flags can be static, meaning they’re either “on” or “off” for everyone; or dynamic meaning that
+          they’re “on” or “off” for some users based on a criteria, like whether they’re in a “control group” or a “test
+          group” of an A/B test. In order to make a flag dynamic, a “Toggle Router” is needed [3]. </p>
+        <h4>3.2.1 Toggle Router</h4>
+        <p>A toggle router is simply something that “can be used to dynamically control which codepath is live” [3]. The
+          evaluateFlag function from the example above is a toggle router. One can implement toggle routers in many
+          ways, like a simple in-memory store or a standalone app with a user interface (UI).</p>
+        <p>A toggle router can be customized to evaluate a flag given any desired criteria. Using a toggle router, Solar
+          Flair could set a rollout percentage so that a set percentage of users receive the new quote form while the
+          rest receive the old one.</p>
+        <p>For example, Jack and Jill are two potential customers, both looking for solar panel installations for their
+          respective homes. They each visit solarflair.net in their browsers. A toggle router inputs their unique
+          identifiers (like their IP address) into a hashing algorithm and determines that Jack will receive the old
+          version of the quote form and Jill will receive the new version. All this happens using just one version of
+          Solar Flair’s website.</p>
+        <img src="./images/diagrams/3.2.1_jack_and_jill.png" alt="jack and jill comparison">
+        <h4>3.2.2 - Using Feature Flags for A/B Testing</h4>
+        <p>As mentioned earlier, two key challenges of implementing AB Testing are:</p>
+        <p>1. Assigning users randomly into groups.</p>
+        <p>2. Serving a user the same treatment on each visit.</p>
+        <p>Solar Flair can solve these two challenges by using feature flags with a toggle router.</p>
         <h2 id="section-4">4. Existing Solutions</h2>
         <h3 id="section-4-1">4.1 DIY</h3>
         <h3 id="section-4-2">4.2 Paid Solutions</h3>
