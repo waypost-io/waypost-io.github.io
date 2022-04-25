@@ -92,7 +92,7 @@
           Manage feature flags and experiments with a couple clicks.
         </p>
         <p>Waypost analyzes the data and provides experiment results.</p>
-        <img src="./images/diagrams/5.2_flags_dashboard.gif" alt="Flags Dashboard"/>
+        <img src="./images/diagrams/5.2_flags_dashboard.gif" alt="Flags Dashboard" />
       </div>
     </div>
     <div class="h-full">
@@ -104,7 +104,7 @@
         <p>Waypost comes Dockerized for simple deployment.</p>
         <p>Completely open-source and self-hosted, so it can be customized according to your needs.</p>
         <p>Provides real-time updates and is easily scalable.</p>
-        <img src="./images/diagrams/architecture_with_bg.png" alt="Architecture"/>
+        <img src="./images/diagrams/architecture_with_bg.png" alt="Architecture" />
       </div>
     </div>
   </div>
@@ -471,8 +471,54 @@
         <p>Coming Soon!</p>
         <!-- Section 1 -->
         <h2 id="section-1">1. Introduction</h2>
+        <p>Waypost is an open-source, lightweight, self-hosted feature flag management platform that specializes in A/B
+          Testing, providing analytical insights for your experiments on both the front-end and back-end.</p>
+        <p>As a team of developers starts to iterate on their application and develop new features, they’ll want to have
+          confidence that the choices they’re making are benefiting the business. They’ll want to collect and analyze
+          the behavior of users of their application in order to gain insights on whether their choices are helping,
+          hurting, or having no effect on their bottom line. They’ll also need an easy and quick way to manage these new
+          features and to turn them off if something goes wrong.</p>
+        <p>By using feature flags with Waypost to manage and test their new features, developers can confidently push
+          new features to their applications with the knowledge that the risk of the feature hurting their business is
+          minimized.</p>
         <h3 id="section-1-1">1.1 Hypothetical Waypost User</h3>
+        <p>Solar Flair is a solar panel installation company with a handful of software engineers on their staff. Their
+          main way of gaining business is via their website’s landing page. As is standard in the solar panel
+          installation business, their primary sales funnel starts with clicking a button called “Get a Quote Today”
+          which opens up a form.</p>
+        <p>In Solar Flair’s first iteration of their website, the form requires the customer to input the architectural
+          data and their address in order to calculate how much sunlight their location typically gets. The developer
+          team at Solar Flair sets up event tracking to try and understand how people interact with their website and
+          they discover that 80% of people who click the “Get a Quote Today” button never finish the form and their
+          quote never gets calculated. They get lost in step one of the funnel.</p>
+        <p>The developers get together and discuss why this is happening and theorize that entering all the
+          architectural data is tedious and cumbersome. They believe they can increase the percentage of people signing
+          up for an appointment by using a 3rd-party software which only requires the address of the home as input and
+          then calculates the quote using satellite imagery and climate statistics. However, this software costs a
+          subscription fee, so the team wants to be sure that this fee is worth the cost and gets them enough new
+          customers to gain a profit. In addition, since it’s a 3rd-party software/API that may get updated, they don’t
+          want their entire site to go down if it gets a major update and the quote calculation doesn’t work. </p>
+        <img src="./images/diagrams/1.1_feature_comparison.png" alt="feature comparison">
+        <p>Solar Flair needs a way to **measure and analyze user behavior** when they use the new quote feature vs. the
+          old one. In other words:</p>
+
+        <p>1. They need to serve users either the new quote feature or the old one.</p>
+        <p>2. They also need to determine whether users preferred the new quote, the old quote, or the change had no
+          difference in behavior.</p>
+        <p>If something were to go wrong with the new quote feature, Solar Flair would like all users to be served the
+          old one as soon as possible to minimize any business losses from the bug while it gets fixed.</p>
         <h3 id="section-1-2">1.2 Comparing Two Versions</h3>
+        <p>One option is to roll out the new feature temporarily and measure how the metrics change. But there are
+          several problems with this:</p>
+        <p>1. The new feature hasn’t been tested in production and could have bugs. So Solar Flair wouldn’t want it
+          rolled out to everyone at once.</p>
+        <p>2. This strategy doesn’t control for external factors, like time. For example, users may be more likely to
+          sign up at different times of the year. Without controlling for external factors, the change in metrics might
+          be attributed to the new feature when it was actually caused by something else.</p>
+        <p>Therefore, Solar Flair needs to be sure the only difference between the two user experiences is the different
+          feature being served to them.To do this, they’ll have to show both features during the same time period and
+          randomize who gets which feature.</p>
+        <p>The solution Solar Flair is looking for is experimentation, also known as A/B testing.</p>
         <h2 id="section-2">2. A/B Testing</h2>
         <h3 id="section-2-1">2.1 What is A/B Testing?</h3>
         <h3 id="section-2-2">2.2 Interpreting Results</h3>
@@ -504,16 +550,22 @@
         <h2 id="section-8">8. Glossary</h2>
         <ul>
           <li>
-            <b>Metrics</b> - measures of quantitative assessment commonly used for assessing, comparing, and tracking performance or production
+            <b>Metrics</b> - measures of quantitative assessment commonly used for assessing, comparing, and tracking
+            performance or production
           </li>
           <li>
-            <b>Controlled Experiment</b> - an experiment in which all the variable factors in an experimental group and a comparison control group are kept the same except for one variable factor in the experimental group that is changed or altered
+            <b>Controlled Experiment</b> - an experiment in which all the variable factors in an experimental group and
+            a comparison control group are kept the same except for one variable factor in the experimental group that
+            is changed or altered
           </li>
           <li>
-            <b>Statistically Significant</b> - a determination that a relationship between two or more variables is caused by something other than chance.
+            <b>Statistically Significant</b> - a determination that a relationship between two or more variables is
+            caused by something other than chance.
           </li>
           <li>
-            <b>Data Pipeline</b> - a set of actions that ingest raw data from disparate sources and move the data to a destination for storage and analysis <a href="https://www.stitchdata.com/resources/what-is-data-pipeline">[source]</a>.
+            <b>Data Pipeline</b> - a set of actions that ingest raw data from disparate sources and move the data to a
+            destination for storage and analysis <a
+              href="https://www.stitchdata.com/resources/what-is-data-pipeline">[source]</a>.
           </li>
           <li>
             <b>Backfill</b> - any process that involves modifying or adding new data to existing records in a dataset
@@ -522,7 +574,8 @@
             <b>Continuous data</b> - data that can take any value within a range, such as a person’s weight
           </li>
           <li>
-            <b>Discrete data</b> - data that is countable and distinct, and can only take certain values, such as number of signups.
+            <b>Discrete data</b> - data that is countable and distinct, and can only take certain values, such as number
+            of signups.
           </li>
         </ul>
         <h2 id="section-9">9. References</h2>
@@ -543,7 +596,8 @@
             Dorn, Jeremy. “Open Source A/B Testing”, https://medium.com/growth-book/open-source-a-b-testing-dbc68aedab70
           </li>
           <li>
-            Pam, Robin. “Build vs. Buy: Choosing the Right Experimentation Solution”, https://www.optimizely.com/insights/blog/build-vs-buy
+            Pam, Robin. “Build vs. Buy: Choosing the Right Experimentation Solution”,
+            https://www.optimizely.com/insights/blog/build-vs-buy
           </li>
           <li>
             Miller, Evan. “How Not to Run an A/B Test”, https://www.evanmiller.org/how-not-to-run-an-ab-test.html
