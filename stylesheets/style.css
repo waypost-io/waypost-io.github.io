@@ -388,6 +388,10 @@ li {
   background-color: var(--offwhite);
 }
 
+#case-study-content p {
+  margin: 24px 0;
+}
+
 #case-study-content img {
   max-width: 100%;
 }
