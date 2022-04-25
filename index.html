@@ -930,15 +930,190 @@
         <img src="./images/diagrams/5.6.5_results_page.jpg" alt="Results page">
         <h2 id="section-6">6. Engineering Decisions and Trade-Offs</h2>
         <h3 id="section-6-1">6.1 Hosted vs. Self-Hosted</h3>
+        <p>To fully implement Waypost, a number of important engineering decisions had to made, one of which was whether
+          the Waypost application would be hosted on the cloud or hosted by our users. We opted for a self-hosted option
+          for a couple reasons:</p>
+        <h4>6.1.1 Flexibility in Deployment Options</h4>
+        <p>With a self-hosted product, users have the freedom to deploy Waypost in whichever environment they prefer,
+          whether it’s deploying to a cloud service or hosting it on their local infrastructure. This means users can
+          choose how the Waypost application is monitored and scaled.</p>
+        <h4>6.1.2 Data Security and Availability</h4>
+        <p>Having a feature flag management service hosted on-site keeps security concerns to a minimum by reducing an
+          organization’s reliance on third-parties to host data. It’s impossible to know for sure that an external host
+          will keep their data secure and that their servers will always be available. A self-hosted solution keeps
+          these concerns in-house with full control of security and availability.</p>
         <h3 id="section-6-2">6.2 Collecting User Event Data</h3>
+        <p>A critical component of A/B testing is the user event data that comes from the A and B versions of the
+          application. Without it, no analysis can be performed. To collect user event data for analysis, there were to
+          options to choose from:</p>
+        <p>1. Let the **organization collect the data** and have Waypost query their database.</p>
+        <p>2. Have **Waypost collect the data** and store it in its own database.</p>
+        <img src="./images/diagrams/6.2_collecting_user_event_data.png" alt="Collecting user event data">
+        <p>To make the decision, we considered our target user.</p>
+        <p>Like most companies interested in A/B testing, Solar Flair already has existing infrastructure to collect and
+          store user event data. If Waypost was designed to collect user event data in order to run its statistical
+          analysis, then an organization would need to add additional logging functions into their code to accommodate
+          the second analytics platform. Waypost’s data collection system would be redundant.</p>
+        <img src="./images/diagrams/6.2_collecting_user_event_data_2.png" alt="Collecting user event data 2">
+        <p>With this in mind, we thought it would be advantageous to use the existing data instead of duplicating it by
+          hosting our own analytics platform. By opting out of deploying an analytics platform with Waypost,
+          organizations can remain in full control over their own event logging processes.</p>
         <h3 id="section-6-3">6.3 Communication Between Manager App and Flag Provider</h3>
+        <p>In the earliest implementation of Waypost, the SDK clients connected directly to the Manager App. However,
+          there are a number of issues with this approach.</p>
+        <h4>6.3.1 The Downsides of the SDK and Manager App Communicating Directly</h4>
+        <p>The biggest challenge is that the number of clients connecting to the Manager App is potentially quite large
+          since there would be one instance for each visitor to the site. For example, if there were 500 users of an
+          application with our SDK in it, the Manager App would have to manage 500 SSE connections in addition to
+          handling the UI’s API calls and running statistical analysis. The sheer volume of requests creates a
+          bottleneck that could have adverse effects on either the clients or the users interacting with the Manager
+          App.</p>
+        <img src="./images/diagrams/6.3.1_backend_server_connected_to_SDK.png" alt="Backend connected to SDK">
+        <p>Another consequence of this architecture is that clients interface directly with the server that hosts
+          Waypost’s data. If a bad actor knew the IP address of the Manager App, it would be susceptible to attacks. The
+          alternative of separating these concerns by only allowing clients to interact with the Flag Provider minimizes
+          exposure to Waypost’s data, thus creating a layer of security.</p>
+        <p>Lastly, coupling the management and serving of flag data means that the two services must scale up together
+          instead of separately. With a separate Flag Provider, a developer can start up a new instance if the volume of
+          SDK clients is too large for just a single instance to handle. This also allows an organization to reduce
+          latency to the SDK clients by creating new flag provider instances physically closer to their users.</p>
+        <h4>6.3.2 How should the Flag Provider and Manager App Communicate?</h4>
+        <p>Due to these concerns, we decided to implement an intermediary service to provide feature flag data to the
+          SDK clients. To create such a service, we need a way for the Flag Provider to receive updated flag data from
+          the Manager App. The three major options we considered implementing were polling, a message broker, and
+          webhooks.</p>
+        <p>Polling is a method of communication that uses HTTP requests sent at a predefined interval to receive updated
+          data. For example, if the Flag Provider used polling, it would send a GET request to the Manager App every 10
+          seconds. As a response the Manager App would send the flag data. The downsides to this method are the lack of
+          real-time updates as requests are sent every 10 seconds. Also, this method means that lots of unnecessary
+          requests are getting sent between servers, because the there will be intervals when the flag data never
+          changes. If the flag data doesn’t change then the Flag Provider is sending GET requests for data that’s
+          already up to date.</p>
+        <img src="./images/diagrams/6.3.2_polling.png" alt="Polling">
+        <p>To remedy the issues with polling, it’s possible to use a similar method known as “long polling”. With long
+          polling, a request gets sent to the server, and a response is only sent back when the server has a message to
+          send. In the context of Waypost, an SDK client would send a request to the Flag Provider. If the flag data has
+          changed since the previous GET request, then the server would send back the updated flags. Otherwise, the
+          server would wait to send a response until the flags are updated. Despite its benefits, we decided against
+          long polling because it still requires a high volume of requests to be verified and processed by the server.
+        </p>
+        <img src="./images/diagrams/6.3.2_long_polling.png" alt="Long-polling">
+        <p>Another option we considered was a message broker. A message broker is a commonly used tool that allows
+          services to communicate with one another. A message broker exchanges information through a system of
+          publishers and subscribers. Within the context of Waypost, here’s how a message broker would work:</p>
+        <p>1. In the event that the flag data is updated, a message containing the flag data is published to the message
+          broker.</p>
+        <p>2. The Flag Provider pulls the message from the message broker and saves the flag data to memory.</p>
+        <p>A message broker is a good option because communication between the two services will be event-driven and
+          happen in real-time. Also, the message broker gives some degree of fault tolerance. If the Flag Provider goes
+          down for any reason, messages sent from the Manager App will be available once it is up and running again.
+          Additionally, a message broker eliminates the need to create API endpoints on the two services.</p>
+        <p>The main trade-offs to this approach are that it would increase the complexity of the architecture. There’s
+          now another component to maintain and secure. Message brokers can also make debugging difficult because
+          there’s now another component logging errors.</p>
+        <p>Due to these reasons, we turned to another option, webhooks.</p>
+        <img src="./images/diagrams/6.3.2_message_broker.png" alt="Message Broker">
+        <p>A webhook is an HTTP request that gets sent to another server when a predefined event occurs. In our case,
+          whenever an update is made to either the feature flag data or the SDK key, the Manager App sends a webhook to
+          the Flag Provider with the updated data. The Flag Provider saves the data to memory and forwards the flag data
+          to any SDK clients that are connected. Using this event-driven approach of sending a webhook on updates allows
+          the Flag Provider to have the latest version of the flag data.</p>
+        <img src="./images/diagrams/6.3.2_webhook.png" alt="Webhook">
+        <p>The Flag Provider also should only make updates to its flag data if the webhook it received was from the
+          Manager App. To implement this, the Manager App attaches a header to each webhook with a secret key that only
+          the Flag Provider and Manager App have access to. If the verification header does not match the secret key,
+          then the request is rejected.</p>
         <h3 id="section-6-4">6.4 Providing Feature Flag Data to SDK</h3>
+        <p>The main purpose of the Flag Provider is to ensure that clients running the Waypost SDK receive up-to-date
+          feature flag data. This ensures that SDK clients will have the data they need when they’re expected to have
+          it. One example of why this is crucial is in event of a new feature causing an application-crashing bug. A
+          developer, when notified of the issue, would toggle the flag that contained the new feature. One would want
+          that new flag data to be sent to the SDKs as fast as possible upon toggling. </p>
+        <p>The options we considered for communicating between SDK clients and the Flag Provider were WebSockets and
+          Server-Sent events (SSE).</p>
+        <h4>6.4.1 WebSockets vs. Server-Sent Events</h4>
+        <p>WebSocket is a communication protocol that allows bidirectional communication through a single TCP
+          connection. The WebSocket protocol can be described using three phases:</p>
+        <p>1. An initial GET request with some special headers are sent from the client to the server. This allows the
+          server to establish a connection using the WebSocket protocol.</p>
+        <p>2. The client and server communicate with each other. Messages can be sent back and forth using the WebSocket
+          connection.</p>
+        <p>3. The connection is closed when either the client and server call a “close connection” method.</p>
+        <p>WebSocket is useful because only one connection needs to be made and communication between the two entities
+          is real time. The main downside of WebSockets, for our use case, is that we don’t ever need to send messages
+          from the client to the server. In other words, we don’t need two-way communication. Another minor concern of
+          using WebSocket is that it adds some development overhead. It typically requires more code than other methods,
+          and it bars us from using useful HTTP functionality.</p>
+        <img src="./images/diagrams/6.4.1_websocket.png" alt="WebSocket">
+        <p>Server-Sent Events, or SSE, only allows for unidirectional communication between the server and a client.
+          Whenever feature flag data is updated on the Flag Provider, new data is sent to all the clients that are
+          connected. This approach minimizes latency, creates a real-time stream of feature flag data, and reduces the
+          number of connections that need to be made with the server. Here’s how SSE works:</p>
+        <p>1. The client sends a request to the server.</p>
+        <p>2. The server responds, confirming that the connection has been made.</p>
+        <p>3. The server can now send messages to the client in response to events.</p>
+        <p>The drawback to using SSE is that the connection can occasionally be dropped. Connections are dropped when a
+          browser exceeds six open connections or the connection remains inactive for 30 seconds. For this reason, the
+          Waypost SDK automatically re-establishes lost connections after a connection is lost using the EventSource
+          API.</p>
+        <img src="./images/diagrams/6.4.1_SSE.png" alt="SSE">
+        <p>To ensure that each SSE connection is valid, the SDK client sends an SDK key in the initial request to the
+          Flag Provider. The Flag Provider, who stores a copy of the SDK key, checks that the stored key matches the key
+          provided by the client. Invalid keys are rejected, while valid ones are permitted to make a connection.</p>
         <h3 id="section-6-5">6.5 Statistics Pipeline</h3>
+        <p>The statistics pipeline is a crucial piece of our architecture. The pipeline consists of three steps:</p>
+        <p>1. Aggregate the metrics from the Events DB during the experiment’s time frame.</p>
+        <p>2. Group the data by experiment and by treatment group.</p>
+        <p>3. Run statistical tests on the data and write results.</p>
+        <p>This pipeline could take a lot of time and resources to run if a company had a large volume of user event
+          data and several experiments running. Thus, it was important to decide:</p>
+        <p>**How often to run** this pipeline.</p>
+        <p>Whether to deploy on a **separate server** or on the **Manager App’s server**. If the pipeline took a long
+          time to run, then having it on the Manager App’s back-end could block other operations such as updates to
+          flags.</p>
+        <img src="./images/diagrams/6.5_seperate_stats_server.png" alt="seperate stats server">
+        <h4>6.5.1 How often to run the pipeline</h4>
+        <p>If the pipeline was run frequently, such as each time the page was loaded, the developer using Waypost could
+          quickly access up-to-date experiment results without having to wait, which would be the ideal user experience.
+          However, the trade-off with this is that it would take up a large amount of computing resources. </p>
+        <p>This can be optimized by taking into account how often a developer would need to see the results. As a
+          general rule, experimenters should not look at an experiment’s results until it is completed, because peeking
+          increases the false positive rate [7]. That means there isn’t a need to constantly refresh results.</p>
+        <p>Therefore, Waypost has a button called “Refresh Results”, which triggers the statistics pipeline when
+          clicked. This means that the results will only be computed when necessary, which saves server resources.</p>
+        <h4>6.5.2 Deploy pipeline on separate server or on Manager App’s server</h4>
+        <p>A concern with this approach was that the pipeline may take a long time to run, blocking other operations and
+          leading to a negative experience for the user. However, the pipeline took less than a second to run when
+          tested with a dataset of 10,000 users in the experiment with 2 metrics (our estimate for the average Waypost
+          user), thus eliminating that concern. Given the performance, Waypost has the statistics pipeline on the same
+          server as the Manager App instead of provisioning a dedicated server for it. The pipeline runs infrequently
+          and typically takes less than a second to run, therefore one does not have to worry about it blocking other
+          operations.</p>
         <h2 id="section-7">7. Future Work</h2>
         <h3 id="section-7-1">7.1 Extended Database Integration</h3>
+        <p>As Waypost currently exists, developers can only connect to an external PostgreSQL database when analyzing
+          user event data. In reality, organizations use a variety of different database technologies. Companies who
+          store user event data with something besides PostgreSQL will need to either load the data into a Postgres
+          database themselves, or alter Waypost’s source code to be able to connect to something different. A future
+          iteration of Waypost would aim to address this need by adding more database support.</p>
         <h3 id="section-7-2">7.2 Feature Flags by Application</h3>
+        <p>Another valuable addition to Waypost would be to separate feature flag data by application. If an
+          organization runs multiple applications, it would be ideal for each application to only receive feature flag
+          data that pertained to that it. Currently, Waypost sends each application all the feature flag data.
+          Separating feature flags by application would reduce the amount of data being sent to each SDK client and also
+          make it so applications would only be able to read their own feature flag data.</p>
         <h3 id="section-7-3">7.3 Login Capability</h3>
+        <p>A login capability would have many useful benefits, especially in terms of administration. By requiring users
+          to log in to the management application, an admin would be able to keep track of and control who edits data
+          and who has permission to edit data. To adhere to the principle of least privilege, an admin could make sure
+          that each team only has access to the exact data they need. Also, if a flag looks like it was toggled
+          erroneously, an admin could check who edited it last and reach out to them to discuss whether it was a mistake
+          or not.</p>
         <h3 id="section-7-4">7.4 Additional Language Support for SDKs</h3>
+        <p>To allow Waypost to be used by as many developers as possible, it would be beneficial to add additional
+          language support for SDKs. As of right now, Waypost can only support users who use React and/or node for their
+          applications. Waypost could expand its usage by adding support for other common languages such as Go, Ruby,
+          Python, Java, and C++.</p>
         <h2 id="section-8">8. Glossary</h2>
         <ul>
           <li>
