@@ -471,8 +471,8 @@
         <p>Coming Soon!</p>
         <!-- Section 1 -->
         <h2 id="section-1">1. Introduction</h2>
-        <p>Waypost is an open-source, lightweight, self-hosted feature flag management platform that specializes in A/B
-          Testing, providing analytical insights for your experiments on both the front-end and back-end.</p>
+        <p><strong>Waypost is an open-source, lightweight, self-hosted feature flag management platform that specializes in A/B
+          Testing</strong>, providing analytical insights for your experiments on both the front-end and back-end.</p>
         <p>As a team of developers starts to iterate on their application and develop new features, they’ll want to have
           confidence that the choices they’re making are benefiting the business. They’ll want to collect and analyze
           the behavior of users of their application in order to gain insights on whether their choices are helping,
@@ -499,41 +499,45 @@
           customers to gain a profit. In addition, since it’s a 3rd-party software/API that may get updated, they don’t
           want their entire site to go down if it gets a major update and the quote calculation doesn’t work. </p>
         <img src="./images/diagrams/1.1_feature_comparison.png" alt="feature comparison">
-        <p>Solar Flair needs a way to **measure and analyze user behavior** when they use the new quote feature vs. the
+        <p>Solar Flair needs a way to <strong>measure and analyze user behavior</strong> when they use the new quote feature vs. the
           old one. In other words:</p>
 
-        <p>1. They need to serve users either the new quote feature or the old one.</p>
-        <p>2. They also need to determine whether users preferred the new quote, the old quote, or the change had no
-          difference in behavior.</p>
+        <ol>
+          <li>They need to serve users either the new quote feature or the old one.</li>
+          <li>They also need to determine whether users preferred the new quote, the old quote, or the change had no
+          difference in behavior.</li>
+        </ol>
         <p>If something were to go wrong with the new quote feature, Solar Flair would like all users to be served the
           old one as soon as possible to minimize any business losses from the bug while it gets fixed.</p>
         <h3 id="section-1-2">1.2 Comparing Two Versions</h3>
         <p>One option is to roll out the new feature temporarily and measure how the metrics change. But there are
           several problems with this:</p>
-        <p>1. The new feature hasn’t been tested in production and could have bugs. So Solar Flair wouldn’t want it
-          rolled out to everyone at once.</p>
-        <p>2. This strategy doesn’t control for external factors, like time. For example, users may be more likely to
+        <ol>
+          </li>The new feature hasn’t been tested in production and could have bugs. So Solar Flair wouldn’t want it
+          rolled out to everyone at once.</li>
+          <li>This strategy doesn’t control for external factors, like time. For example, users may be more likely to
           sign up at different times of the year. Without controlling for external factors, the change in metrics might
-          be attributed to the new feature when it was actually caused by something else.</p>
+          be attributed to the new feature when it was actually caused by something else.</li>
+        </ol>
         <p>Therefore, Solar Flair needs to be sure the only difference between the two user experiences is the different
-          feature being served to them.To do this, they’ll have to show both features during the same time period and
-          randomize who gets which feature.</p>
-        <p>The solution Solar Flair is looking for is experimentation, also known as A/B testing.</p>
+          feature being served to them.To do this, they’ll have to <strong>show both features during the same time period and
+          randomize who gets which feature</strong>.</p>
+        <p>The solution Solar Flair is looking for is experimentation, also known as <strong>A/B testing</strong>.</p>
         <h2 id="section-2">2. A/B Testing</h2>
         <h3 id="section-2-1">2.1 What is A/B Testing?</h3>
         <p>A/B testing is the practice of testing two or more versions of a feature at once, in which a random group of
           users is assigned to receive one version, and another random group of users is assigned the other version, for
-          a certain period of time. The A/B test can be considered the most basic kind of randomized controlled
-          experiment. In its simplest form, there are two treatments and one acts as the control for the other [1].</p>
+          a certain period of time. The A/B test can be considered the most basic kind of <strong>randomized controlled
+          experiment</strong>. In its simplest form, there are two treatments and one acts as the control for the other [1].</p>
         <img src="./images/diagrams/2.1_A_and_b_features.png" alt="A and B features">
         <h3 id="section-2-2">2.2 Interpreting Results</h3>
         <p>After an A/B test has finished running, one can analyze the results to make a data-driven decision. Every
-          experiment should have a primary metric, and possibly secondary metrics, by which it will be evaluated. The
+          experiment should have a primary <strong>metric</strong>, and possibly secondary metrics, by which it will be evaluated. The
           aggregate values for these metrics get collected for the test group and the control group for comparison. One
           can use statistics to determine if there was a statistically significant change in the metrics or not.
-          Statistical significance is determined by a statistic called a “p-value”. With this information, the team can
-          conclude whether the new feature being tested was “successful” or not, and make a decision whether to rollout
-          the feature to their entire userbase, to remove it, or to continue to run more experiments. For example, if
+          <strong>Statistical significance</strong> is determined by a statistic called a “p-value”. With this information, the team can
+          conclude whether the new feature being tested was “successful” or not, and make a decision whether to <strong>rollout
+          the feature to their entire userbase</strong>, to <strong>remove it</strong>, or to <strong>continue to run more experiments</strong>. For example, if
           Solar Flair obtained a statistically significant increase in form completion rate with their new quote
           feature, then they could confidently roll out the new feature.</p>
         <img src="./images/diagrams/2.2_AB_decision.png" alt="A/B decision">
@@ -543,32 +547,38 @@
           challenges and statistics challenges. </p>
         <h4>2.3.1 Engineering Challenges</h4>
         <p>From an engineering standpoint, developers must contend with the challenges of: </p>
-        <p>How to assign users randomly into groups? Users must be randomly assigned so that the two groups can be
-          fairly compared, and so the two groups can be roughly the same size. </p>
-        <p>How to keep track of what group they were in? Each user must be given the same treatment on each visit.</p>
-        <p>How to log user events? Each time an event that we are interested in occurs, it must be logged to the
+        <ul>
+        <li><strong>How to assign users randomly into groups?</strong> Users must be randomly assigned so that the two groups can be
+          fairly compared, and so the two groups can be roughly the same size. </li>
+        <li><strong>How to keep track of what group they were in?</strong> Each user must be given the same treatment on each visit.</li>
+        <li><strong>How to log user events?</strong> Each time an event that we are interested in occurs, it must be logged to the
           database along with relevant information regarding who, what, and where. In addition, one must log when a user
-          is exposed to an experiment. This will result in a huge volume of writes to the database.</p>
-        <p>How to pull the metrics to analyze afterward? Each metric is calculated differently and some may rely on the
+          is exposed to an experiment. This will result in a huge volume of writes to the database.</li>
+        <li><strong>How to pull the metrics to analyze afterward?</strong> Each metric is calculated differently and some may rely on the
           same events, requiring the event data to be queryable and accessible. The metric calculation should also be
-          automated so that one does not have to manually query the metrics each time.</p>
+          automated so that one does not have to manually query the metrics each time.</li>
+        </ul>
         <h4>2.3.2 Statistical Challenges</h4>
         <p>From a statistics standpoint, the main challenges are:</p>
-        <p>Designing the experiment correctly such that we can gain meaningful results from it. It may be surprising how
-          easy it is to design an experiment incorrectly. For example, when running multiple experiments at the same
-          time, one must ensure that different experiments do not influence each other’s results.</p>
-        <p>Determining which statistical tests to run on the data. There are many different types of statistical tests
-          to choose from, each with different purposes. Therefore, picking which statistical tests to run must be done
-          thoughtfully and with care.</p>
+        <ul>
+          <li><strong>Designing the experiment correctly such that we can gain meaningful results from it.</strong> It may be surprising how
+            easy it is to design an experiment incorrectly. For example, when running multiple experiments at the same
+            time, one must ensure that different experiments do not influence each other’s results.</li>
+          <li><strong>Determining which statistical tests to run on the data.</strong> There are many different types of statistical tests
+            to choose from, each with different purposes. Therefore, picking which statistical tests to run must be done
+            thoughtfully and with care.</li>
+        </ul>
         <h2 id="section-3">3. Implementing Two Versions of a Site</h2>
         <p>Before Solar Flair can place their users into “test” and “control” groups, they must be able to serve the
           groups different versions of their website at the same time. There are two common ways to implement this:</p>
-        <p>1. Have multiple deployments of the website running and route users to one or the other.</p>
-        <p>2. Use feature flags to render their site one way or the other at run time.</p>
+        <ol>
+          <li>Have multiple deployments of the website running and route users to one or the other.</li>
+          <li>Use feature flags to render their site one way or the other at run time.</li>
+        </ol>
         <h3 id="section-3-1">3.1 Possible Solution: Multiple Deployments</h3>
-        <p>This strategy is implemented by having two versions of an application running in production at once. The new
-          version of the application is deployed to a set percentage of the organization’s servers. A router (usually a
-          load balancer) will route users to the two sets of servers. The “rollout percentage,” the percentage of the
+        <p>This strategy is implemented by having <strong>two versions of an application running in production at once</strong>. The new
+          version of the application is deployed to a set percentage of the organization’s servers. A <strong>router</strong> (usually a
+          load balancer) will route users to the two sets of servers. The “<strong>rollout percentage</strong>,” the percentage of the
           users get routed to one group vs. the other, can be set to any percentage the user wants, whether it be 50/50,
           10/90, etc.</p>
         <img src="./images/diagrams/3.1_multiple_deployments.png" alt="multiple deployments">
@@ -578,15 +588,17 @@
         <p>This approach allows an organization to run two versions of their website, collect user data on both
           versions, and compare the results. However, there are some trade-offs to this strategy.</p>
         <h4>3.1.1 Trade-off #1: Full redeploy to fix bugs</h4>
-        <p>Using multiple deployments for serving two versions of a website requires a full take-down and redeploy to
-          fix a bug. If there’s a critical bug in the new version of the application, the following steps must be
+        <p>Using multiple deployments for serving two versions of a website requires a <strong>full take-down and redeploy to
+          fix a bug</strong>. If there’s a critical bug in the new version of the application, the following steps must be
           completed:</p>
-        <p>1. The rollout percentage must first be set to 0% so all requests will be handled by the group of machines
-          with the old version of the application.</p>
-        <p>2. The machines serving the new version must be rolled-back to handle traffic without crashing.</p>
-        <p>3. The load balancer must be updated to allow rolled-back servers to receive requests again.</p>
-        <p>4. Once the bug is fixed, the new version must be deployed, the rollout percentage must be set and the router
-          must be configured accordingly.</p>
+        <ol>
+          <li>The rollout percentage must first be set to 0% so all requests will be handled by the group of machines
+            with the old version of the application.</li>
+          <li>The machines serving the new version must be rolled-back to handle traffic without crashing.</li>
+          <li>The load balancer must be updated to allow rolled-back servers to receive requests again.</li>
+          <li>Once the bug is fixed, the new version must be deployed, the rollout percentage must be set and the router
+            must be configured accordingly.</li>
+        </ol>
         <p>Many of these steps can be automated, but if the organization is not using a 3rd-party, they must spend
           resources to do that. For a small organization with minimal resources, this is undesirable.</p>
         <h4>3.1.2 Trade-off #2: Complexity when testing multiple features</h4>
@@ -601,32 +613,36 @@
         <img src="./images/diagrams/3.1.2_multivariate_testing.png" alt="multivariate testing">
         <p>Regardless of whether the additional new features being tested are overlapping or not, more tests results in:
         </p>
-        <p>More deployed copies of an application.</p>
-        <p>More versions of an application to keep track of, which can lead to human errors, such as implementing a
-          change on the wrong version of the application.</p>
+        <ul>
+          <li>More deployed copies of an application.</li>
+          <li>More versions of an application to keep track of, which can lead to human errors, such as implementing a
+            change on the wrong version of the application.</li>
+        </ul>
         <p>A large company with a large infrastructure and some DevOps engineers may not be be bothered by additional
           deployments of code and keeping track of the different versions of the application. But it would be more
           challenging for smaller organizations to implement this solution.</p>
+        <br>
+        <!-- Do a line break here if we can -->
         <p>Solar Flair only has a handful of developers and servers. Therefore it would not be wise to implement this
           strategy given the trade-offs. Fortunately for them, there’s a way to serve users two different versions of a
-          site with just one instance of an application, through using feature flags.</p>
+          site with just one instance of an application, through using <strong>feature flags</strong>.</p>
         <h3 id="section-3-2">3.2 Possible Solution: Feature Flags</h3>
         <p>“A feature flag is a software development process used to enable or disable functionality remotely without
           deploying code” [2].</p>
-        <p>A feature flag is conditional logic connected to a remote service that can alter its flow without a
-          redeployment. One can think of a feature flag as a toggle that determines whether a feature is turned “on” or
-          “off.” If the flag is turned “on”, the conditional returns true and the user receives one version of the
-          application. If the flag is turned “off”, the conditional returns false and they receive another.</p>
+        <p><strong>A feature flag is conditional logic connected to a remote service that can alter its flow without a
+          redeployment.</strong> One can think of a feature flag as a toggle that determines whether a feature is turned “on” or
+          “off.” If the flag is turned “on”, the conditional returns <code>true</code> and the user receives one version of the
+          application. If the flag is turned “off”, the conditional returns <code>false</code> and they receive another.</p>
         <img src="./images/diagrams/3.2_flag_evaluation.png" alt="Flag evaluation">
         <!-- Code snippet here -->
         <p>One can wrap as much or as little code in the feature flag as they like. It could be something big like a
           completely different UI, or something small, like different colors on a “Checkout” button.</p>
-        <p>Feature flags can be static, meaning they’re either “on” or “off” for everyone; or dynamic meaning that
+        <p>Feature flags can be <strong>static</strong>, meaning they’re either “on” or “off” for everyone; or <strong>dynamic</strong> meaning that
           they’re “on” or “off” for some users based on a criteria, like whether they’re in a “control group” or a “test
           group” of an A/B test. In order to make a flag dynamic, a “Toggle Router” is needed [3]. </p>
         <h4>3.2.1 Toggle Router</h4>
         <p>A toggle router is simply something that “can be used to dynamically control which codepath is live” [3]. The
-          evaluateFlag function from the example above is a toggle router. One can implement toggle routers in many
+          <code>evaluateFlag</code> function from the example above is a toggle router. One can implement toggle routers in many
           ways, like a simple in-memory store or a standalone app with a user interface (UI).</p>
         <p>A toggle router can be customized to evaluate a flag given any desired criteria. Using a toggle router, Solar
           Flair could set a rollout percentage so that a set percentage of users receive the new quote form while the
@@ -641,7 +657,7 @@
         <p>As mentioned earlier, two key challenges of implementing AB Testing are:</p>
         <p>1. Assigning users randomly into groups.</p>
         <p>2. Serving a user the same treatment on each visit.</p>
-        <p>Solar Flair can solve these two challenges by using feature flags with a toggle router.</p>
+        <p><strong>Solar Flair can solve these two challenges by using feature flags with a toggle router.</strong></p>
         <h2 id="section-4">4. Existing Solutions</h2>
         <p>Solar Flair now knows they want to integrate feature flags into their web app and use them to perform A/B
           tests. What they don’t know is exactly how to implement this new system. Do they want to build it from scratch
@@ -649,16 +665,20 @@
           accomplish that?</p>
         <h3 id="section-4-1">4.1 DIY</h3>
         <p>If they decide to build the system, they’ll need to accomplish three things:</p>
-        <p>1. Persistently store their feature flag data.</p>
-        <p>2. Connect the flag data to their application to dynamically serve the two versions of their site.</p>
-        <p>3. Collect user event data and analyze it to gain insights to drive their decision making.</p>
+        <ol>
+          <li>Persistently store their feature flag data.</li>
+          <li>Connect the flag data to their application to dynamically serve the two versions of their site.</li>
+          <li>Collect user event data and analyze it to gain insights to drive their decision making.</li>
+        </ol>
         <h4>4.1.1 Config File</h4>
         <p>The easiest and simplest way to store all the flag data in one place is by using a configuration file. This
           file would contain the flag data in a data structure and could look something like the code below:</p>
         <!-- Code snippet -->
         <p>The trade-offs with the config file are:</p>
-        <p>Flags can’t be set dynamically, they’re “on” or “off” for all users.</p>
-        <p>Every time the config file is updated the application must be redeployed for the changes to take effect.</p>
+        <ul>
+          <li><strong>Flags can’t be set dynamically</strong>, they’re “on” or “off” for all users.</li>
+          <li>Every time the config file is updated the application must be redeployed for the changes to take effect.</li>
+        </ul>
         <p>The config file’s shortcomings make this option unappealing.</p>
         <h4>4.1.2 Database</h4>
         <img src="./images/diagrams/4.1.2_application_to_database.png" alt="applicaiton to database">
@@ -666,11 +686,11 @@
         <p>A slightly better option for storing flag data is by using a database. With this configuration, Solar Flair’s
           app would query the database each time a flag’s status is needed and updates to the flags would be made using
           SQL commands, which would be cumbersome for non-technical employees to manage feature flags. The main benefit
-          of this architecture is it would allow flag data to be updated without redeployment. [4]</p>
-        <p>However, it still doesn’t solve the core problem of dynamically evaluating the flags. In addition, neither of
-          these two options address the analysis of the data. What Solar Flair needs is something bigger and more
-          robust. A place to easily manage their flags and their experiments. What they need is a feature flag
-          management service, specifically one that can handle A/B testing.</p>
+          of this architecture is it would allow flag data to be <strong>updated without redeployment</strong>. [4]</p>
+        <p>However, it still doesn’t solve the core problem of dynamically evaluating the flags. In addition, <strong>neither of
+          these two options address the analysis of the data</strong>. What Solar Flair needs is something bigger and more
+          robust. A place to easily manage their flags and their experiments. What they need is a <strong>feature flag
+          management service</strong>, specifically one that can handle A/B testing.</p>
         <h4>4.1.3 Building a Feature Flag Management Service</h4>
         <p>Feature flag management services are platforms that allow developers to view all their feature flags in one
           place, usually through a user interface. They make the process of performing CRUD operations on the flags
