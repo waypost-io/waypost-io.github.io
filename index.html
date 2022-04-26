@@ -513,7 +513,7 @@
         <p>One option is to roll out the new feature temporarily and measure how the metrics change. But there are
           several problems with this:</p>
         <ol>
-          </li>The new feature hasn’t been tested in production and could have bugs. So Solar Flair wouldn’t want it
+          <li>The new feature hasn’t been tested in production and could have bugs. Therefore, Solar Flair wouldn’t want it
           rolled out to everyone at once.</li>
           <li>This strategy doesn’t control for external factors, like time. For example, users may be more likely to
           sign up at different times of the year. Without controlling for external factors, the change in metrics might
@@ -648,7 +648,7 @@
           Flair could set a rollout percentage so that a set percentage of users receive the new quote form while the
           rest receive the old one.</p>
         <p>For example, Jack and Jill are two potential customers, both looking for solar panel installations for their
-          respective homes. They each visit solarflair.net in their browsers. A toggle router inputs their unique
+          respective homes. They each visit <span id="fake-website">solarflair.net</span> in their browsers. A toggle router inputs their unique
           identifiers (like their IP address) into a hashing algorithm and determines that Jack will receive the old
           version of the quote form and Jill will receive the new version. All this happens using just one version of
           Solar Flair’s website.</p>
@@ -677,7 +677,7 @@
         <p>The trade-offs with the config file are:</p>
         <ul>
           <li><strong>Flags can’t be set dynamically</strong>, they’re “on” or “off” for all users.</li>
-          <li>Every time the config file is updated the application must be redeployed for the changes to take effect.</li>
+          <li>Every time the config file is updated the application must be <strong>redeployed for the changes to take effect</strong>.</li>
         </ul>
         <p>The config file’s shortcomings make this option unappealing.</p>
         <h4>4.1.2 Database</h4>
@@ -699,47 +699,55 @@
         <p>To build this system oneself, one will need to build both the feature flagging and A/B testing services. One
           must first design and build the architecture to manage and evaluate feature flags. This will require several
           components such as a frontend, backend, database, and SDK at a minimum. </p>
-        <p>1. A **frontend interface** will enable both developers and non-technical members of the organization to
-          easily manage feature flags and experiments.</p>
-        <p>2. A **backend** server and database will enable persistent storage of data.</p>
-        <p>3. An **SDK** that lives in the organization’s app should return the “on” or “off” status for a given user
-          based on factors like rollout percentage. It is typically necessary to have SDKs on both the client and
-          server, since there are features to be managed on both.</p>
-        <p>4. The SDKs also need to receive **updated feature flag data** when a change is made from the frontend,
-          ideally in real-time so that features can be shut off immediately if needed.</p>
+        <ol>
+          <li>A <strong>frontend interface</strong> will enable both developers and non-technical members of the organization to
+            easily manage feature flags and experiments.</li>
+          <li>A <strong>backend</strong> server and database will enable persistent storage of data.</li>
+          <li>An <strong>SDK</strong> that lives in the organization’s app should return the “on” or “off” status for a given user
+            based on factors like rollout percentage. It is typically necessary to have SDKs on both the client and
+            server, since there are features to be managed on both.</li>
+          <li>The SDKs also need to receive <strong>updated feature flag data</strong> when a change is made from the frontend,
+            ideally in real-time so that features can be shut off immediately if needed.</li>
+        </ol>
         <img src="./images/diagrams/4.1.3_diy_architecture.png" alt="diy architecture">
         <h4>4.1.4 Building the A/B Testing Functionality</h4>
         <p>In addition to the infrastructure for feature flag management, one must also build the A/B testing
           functionality to gain insights from changes in user event data. There are 4 steps to this:</p>
-        <p>1. Collect the user event data.</p>
-        <p>2. Process the data.</p>
-        <p>3. Run statistical analysis.</p>
-        <p>4. Display the results.</p>
-        <p>For the first step, a system must be in place to log user events and save them to a database using ETL
+        <ol>
+          <li>Collect the user event data.</li>
+          <li>Process the data.</li>
+          <li>Run statistical analysis.</li>
+          <li>Display the results.</li>
+        </ol>
+        <p>For the first step, a system must be in place to <strong>log user events</strong>  and save them to a <strong>database</strong> using ETL
           pipelines. This infrastructure can be built in-house, or a 3rd party service like Mixpanel can be used.
           However, using a 3rd party service will offer less flexibility.</p>
-        <p>Then, the data must be processed by querying the event data and calculating metrics for each experiment and
+        <p>Then, the data must be processed by <strong>querying the event data</strong> and <strong>calculating metrics</strong> for each experiment and
           treatment.</p>
-        <p>Next, the metrics are used as inputs in statistical tests to determine whether the change in them is likely
+        <p>Next, the metrics are used as inputs in <strong>statistical tests</strong> to determine whether the change in them is likely
           due to the change in feature or to random chance.</p>
-        <p>Lastly, the results are displayed, ideally with some visualization.</p>
+        <p>Lastly, the results are displayed, ideally with some <strong>visualization</strong>.</p>
         <p>Having a data scientist on a team to give guidance would make the last three steps go smoothly. For example,
           a data scientist would know which statistical tests to run depending on the data types, how the metrics need
           to be measured and aggregated, and which kinds of visuals are most helpful. Without someone with that
           knowledge, a team may have trouble building an A/B testing solution.</p>
         <h4>4.1.5 Trade-offs</h4>
         <p>Building your own platform for feature flagging and experimentation comes with several benefits:</p>
-        <p>Flexibility over how it is deployed, and ability to customize what features to include and how they are
-          implemented. For example, the team could choose whether to use classical statistics or Bayesian statistics for
-          the experiment analysis.</p>
-        <p>Keep data in-house, reducing concerns around privacy and security</p>
+        <ul>
+          <li><strong>Flexibility over how it is deployed</strong>, and ability to customize what features to include and how they are
+            implemented. For example, the team could choose whether to use classical statistics or Bayesian statistics for
+            the experiment analysis.</li>
+          <li><strong>Keep data in-house</strong>, reducing concerns around privacy and security</li>
+        </ul>
         <p>However, this approach also comes with a set of trade-offs:</p>
-        <p>Time and resources to build the feature flag management and A/B testing platform</p>
-        <p>Responsibility to maintain the system into the future</p>
+        <ul>
+          <li><strong>Time and resources</strong> to build the feature flag management and A/B testing platform</li>
+          <li>Responsibility to <strong>maintain</strong> the system into the future</li>
+        </ul>
         <p>As we saw earlier, building an A/B testing platform completely from scratch is extremely hard and time
           consuming (expect at least 2,000 hours of work to get something decent) [5]. In other words, building the
           platform yourself is not free. </p>
-        <p>One must also consider the accuracy and reliability of the system. Maintaining reliable analytics pipelines
+        <p>One must also consider the <strong>accuracy and reliability</strong> of the system. Maintaining reliable analytics pipelines
           is more difficult than one may think [6]. Therefore, as the ones who created the system, the team will also be
           responsible for maintaining it into the future.</p>
         <h3 id="section-4-2">4.2 Paid Solutions</h3>
@@ -750,12 +758,14 @@
           users by attribute, integrations with productivity tools, workflow automation, and a support team. Optimizely
           is a similar platform which focuses primarily on A/B testing. However, there are several trade-offs that come
           with this approach:</p>
-        <p>Since they are built by an external team, there is not as much flexibility for customization as an in-house
-          platform. They would not be able to change what features to include and their implementation, or the types of
-          statistical tests to use.</p>
-        <p>Using one of these services entails letting a third party **store** user data, which some business may not be
-          comfortable with or legally allowed to.</p>
-        <p>They typically cost a monthly fee and can be out of budget for smaller companies. </p>
+        <ul>
+          <li>Since they are built by an external team, there is not as much flexibility for <strong>customization</strong> as an in-house
+            platform. They would not be able to change what features to include and their implementation, or the types of
+            statistical tests to use.</li>
+          <li>Using one of these services entails letting a third party <strong>store</strong> user data, which some business may not be
+            comfortable with or legally allowed to.</li>
+          <li>They typically <strong>cost</strong> a monthly fee and can be out of budget for smaller companies. </li>
+        </ul>
         <h2 id="section-5">5. Waypost</h2>
         <p>If Solar Flair was a bigger company with more engineers, then building their own system could be a good
           option. If they wanted a large set of features quickly and had a larger budget, then a paid solution like
@@ -764,8 +774,8 @@
           many extra features, as they only need to run simple experiments.</p>
         <p>Therefore, there was an opportunity to create a feature flagging platform that fits the needs of small
           businesses like Solar Flair. We created Waypost, a feature flag management platform that specializes in A/B
-          Testing. Waypost is self-hosted and open-source, so it is completely customizable while still containing the
-          core features our target user needs.</p>
+          Testing. <strong>Waypost is self-hosted and open-source, so it is completely customizable while still containing the
+          core features our target user needs.</strong></p>
         <img src="./images/diagrams/5_competitor_comparison.png" alt="competitor comparison">
         <h3 id="section-5-1">5.1 Architecture Overview</h3>
         <p>Waypost provides a feature flag and A/B testing solution through the integration of it’s own components
@@ -774,24 +784,26 @@
           as the “Events DB”. For example, Solar Flair’s “Application” would be their web application that renders their
           website and their “Events DB” would be their existing user event database.</p>
         <img src="./images/diagrams/5.1_waypost_architecture.png" alt="Waypost architecture">
-        <p>General Overview of the Components and their responsibilities:</p>
-        <p>The Manager Application is responsible for managing feature flags and experiments.</p>
-        <p>The Manager App sends copies of the flag data to the Flag Provider, which saves the copy and forwards it to
-          each application running the Waypost SDK.</p>
-        <p>The SDK is embedded into an application and is responsible for evaluating flags at run-time, and thus
-          allowing one to serve multiple versions of their website to their users. It also performs the assignment of
-          users into treatments.</p>
-        <p>The developer using Waypost is responsible for supplying their existing user event logging solution, in which
-          their **application** sends user event data to their **Events DB**.</p>
-        <p>The Manager App queries the Events DB when it runs statistical analysis for the experiments and displays the
-          results in the Manager’s UI.</p>
+        <p><span class="underline">General Overview of the Components and their responsibilities:</span></p>
+        <ul>
+          <li>The <strong>Manager Application</strong> is responsible for managing feature flags and experiments.</li>
+          <li>The <strong>Manager App</strong> sends copies of the flag data to the <strong>Flag Provider</strong>, which saves the copy and forwards it to
+            each <strong>application</strong> running the <strong>Waypost SDK</strong>.</li>
+          <li>The <strong>SDK</strong> is embedded into an <strong>application</strong> and is responsible for evaluating flags at run-time, and thus
+            allowing one to serve multiple versions of their website to their users. It also performs the assignment of
+            users into treatments.</li>
+          <li>The developer using Waypost is responsible for supplying their existing user event logging solution, in which
+            their <strong>application</strong> sends user event data to their <strong>Events DB</strong>.</li>
+          <li>The <strong>Manager App</strong> queries the <strong>Events DB</strong> when it runs statistical analysis for the experiments and displays the
+            results in the <strong>Manager’s UI</strong>.</li>
+        </ul>
         <h3 id="section-5-2">5.2 Manager Application</h3>
         <img src="./images/diagrams/5.2_Manager_app.png" alt="Manager app">
-        <p>The Manager App is what developers use to manage their feature flags and view experiment results. It also
-          contains a statistics pipeline that performs the querying of data and statistical analysis for experiments.
+        <p>The <strong>Manager App</strong> is what developers use to manage their feature flags and view experiment results. It also
+          contains a <strong>statistics pipeline</strong> that performs the querying of data and statistical analysis for experiments.
           The Manager App has three components, a React.js application that serves as the User Interface (UI), a backend
           server built with Express.js, and a PostgreSQL database used for data persistence. </p>
-        <p>The Manager App’s UI provides features for developers and non-technical members of an organization to manage
+        <p>The Manager App’s <strong>UI</strong> provides features for developers and non-technical members of an organization to manage
           their flags and experiments:</p>
         <h4>Flags Dashboard</h4>
         <p>The Flags Dashboard displays all the flags being used by an application. From here you can toggle, delete,
@@ -799,42 +811,47 @@
         <img src="./images/diagrams/5.2_flags_dashboard.gif" alt="flags Dashboard demo">
         <h4>Flag Details Page</h4>
         <p>To visit the Details Page for any flag, click on a flag’s name on the Flags Dashboard. On this page can view
-          and edit the name, description, rollout percentage of the flag.</p>
+          and edit the <strong>name</strong>, <strong>description</strong>, and <strong>rollout percentage</strong> of the flag.</p>
         <img src="./images/diagrams/5.2_flags_detail_page.gif" alt="flag details page">
-        <p>This page also allows one to view and edit custom assignments. Custom assignments are used to ensure that a
+        <p>This page also allows one to view and edit <strong>custom assignments</strong>. Custom assignments are used to ensure that a
           flag evaluates a certain way for a specific user. </p>
         <p>For example, an internal member testing Solar Flair’s new quote form would add a custom assignment so when
           they connect to Solar Flair’s website the SDK will always serve them the new version of the quote form.</p>
         <img src="./images/diagrams/5.2_custom_assignments.gif" alt="Custom assignment form">
         <h4>Create Experiment Form</h4>
         <p>From a Flag’s Details Page, one can create an experiment on a flag. The most important inputs are the
-          percentage of users tested and the metrics being tested. Note, Waypost doesn’t stop experiments automatically,
-          the duration input is only to help the experimenter plan.</p>
+          <strong>percentage of users tested</strong> and the <strong>metrics</strong> being tested. Note, Waypost doesn’t stop experiments automatically,
+          the <strong>duration</strong> input is only to help the experimenter plan.</p>
         <img src="./images/diagrams/5.2_create_experiment_form.gif" alt="Create experiment form">
         <h4>Flag Events Log</h4>
-        <p>The Flag Events Log is used to keeping track of the changing state of one’s flags. It displays all flag
-          events, like creation, deletion, toggling, and editing of a flag. This page is most useful for debugging,
+        <p>The Flag Events Log is used to keeping track of the changing state of one’s flags. It displays all <strong>flag
+          events</strong>, like creation, deletion, toggling, and editing of a flag. This page is most useful for debugging,
           helping a developer make connections between bugs reported in their application and feature flags.</p>
         <img src="./images/diagrams/5.2_event_log.gif" alt="Event Log">
         <h4>SDK Key</h4>
+        <p>This page is used to create an SDK key, which is used in SDK to Flag Provider communication.</p>
         <img src="./images/diagrams/5.2_SDK_key.jpg" alt="SDK Key">
-        <p>The Manager App’s Backend Server is responsible for:</p>
-        <p>Managing API endpoints for supplying and editing flag and experiment data.</p>
-        <p>Sending flag data and the SDK key to the Flag Provider.</p>
-        <p>The statistics pipeline, which involves querying the Events DB for metric data at the end of an experiment
-          and performing statistical analysis on it to obtain the experiment’s results.</p>
-        <p>The exposures pipeline, which involves querying the Events DB once a day for exposures data and aggregating
-          it. The exposure data can be used by developers to know when to stop an experiment.</p>
+        <p>The Manager App’s <strong>Backend Server</strong> is responsible for:</p>
+        <ul>
+          <li><strong>Managing API endpoints</strong> for supplying and editing flag and experiment data.</li>
+          <li><strong>Sending flag data</strong> and the SDK key to the Flag Provider.</li>
+          <li>The <strong>statistics pipeline</strong>, which involves querying the Events DB for metric data at the end of an experiment
+            and performing statistical analysis on it to obtain the experiment’s results.</li>
+          <li>The <strong>exposures pipeline</strong>, which involves querying the Events DB once a day for exposures data and aggregating
+            it. The exposure data can be used by developers to know when to stop an experiment.</li>
+        </ul>
         <img src="./images/diagrams/5.2_manager_app_responsibilities.png" alt="Manager App Responsibilities">
-        <p>The Manager App’s PostgreSQL Database stores persistent experiment and flag data. Some examples are:</p>
-        <p>Data pertaining to a flag, like it’s name, status (on/off), and rollout percentage.</p>
-        <p>Flag event data, like at what time a flag was toggled, created, edited, or deleted.</p>
-        <p>Custom assignment data, which is used to evaluate a flag a desired way for specific users.</p>
-        <p>High-level experiment data, like id of the flag an experiment is on, the metrics being measured, the amount
-          of users placed in the test and control groups, and the results of the experiment.</p>
-        <p>The most recent SDK key.</p>
-        <p>Database connection data, such as the credentials and URL of the Events DB.</p>
-        <p>Query strings used by the Manager App’s Backend to query the Events DB.</p>
+        <p>The Manager App’s PostgreSQL <strong>Database</strong> stores persistent experiment and flag data. Some examples are:</p>
+        <ul>
+          <li><strong>Data pertaining to a flag</strong>, like it’s name, status (on/off), and rollout percentage.</li>
+          <li><strong>Flag event data</strong>, like at what time a flag was toggled, created, edited, or deleted.</li>
+          <li><strong>Custom assignment data</strong>, which is used to evaluate a flag a desired way for specific users.</li>
+          <li><strong>High-level experiment data</strong>, like id of the flag an experiment is on, the metrics being measured, the amount
+            of users placed in the test and control groups, and the results of the experiment.</li>
+          <li>The most recent <strong>SDK key</strong>.</li>
+          <li><strong>Database connection data</strong>, such as the credentials and URL of the Events DB.</li>
+          <li><strong>Query strings</strong> used by the Manager App’s Backend to query the Events DB.</li>
+        </ul>
         <h3 id="section-5-3">5.3 Flag Provider Service</h3>
         <p>The Flag Provider is a lightweight service that acts like a cache for flag data. It is responsible for
           providing up-to-date flag data to instances of the SDK.</p>
@@ -844,42 +861,44 @@
           data and that flag data must be updated in real time in case a feature needs to be turned off immediately. The
           Manager App, which stores the flag data, could be connected to the SDK directly to serve it flags. </p>
         <p>However, this solution isn’t very scalable because the specific functionality of managing SDK connections is
-          intertwined with the Manager Application’s other duties. Scalability is important in this case, because the
+          intertwined with the Manager Application’s other duties. <strong>Scalability</strong> is important in this case, because the
           number of applications running the SDK can fluctuate significantly. </p>
         <p>A better architecture for Waypost’s use case includes the Flag Provider, a service that is only responsible
-          for sending updates to the SDK in real-time. The Flag Provider is lightweight and thus easily scalable.</p>
+          for sending updates to the SDK in real-time. <strong>The Flag Provider is lightweight and thus easily scalable.</strong></p>
         <h4>5.3.2 Flag Provider Scaling</h4>
         <p>The Flag Provider Service has been load tested to determine how many connections to SDK clients it can
           handle. The maximum amount of connections is important for knowing when one would need to horizontally scale
           the Flag Provider. Based on our environment, response times were extremely fast. However, connections were
-          refused starting at around 318 requests per second, indicating that the Flag Provider could sufficiently
-          handle around 300 SSE connections at once. An organization using Waypost would therefore need to deploy more
+          refused starting at around 318 requests per second, indicating that the <strong>Flag Provider could sufficiently
+          handle around 300 SSE connections at once</strong>. An organization using Waypost would therefore need to deploy more
           instances of the Flag Provider based on how many concurrent users they may have.</p>
         <h3 id="section-5-4">5.4 SDK</h3>
-        <p>Waypost provides SDK’s for React.js (client-side) and Node.js (server-side). The SDK stores copies of the
-          flag data and is responsible for evaluating flags, thus it is also responsible for rendering two versions of a
-          site. In addition, the SDK assigns users into treatment groups for experiments.</p>
+        <p>Waypost provides SDK’s for <strong>React.js</strong> (client-side) and <strong>Node.js</strong> (server-side). The SDK stores copies of the
+          flag data and is responsible for <strong>evaluating flags</strong>, thus it is also responsible for rendering two versions of a
+          site. In addition, the SDK assigns users into <strong>treatment groups</strong> for experiments.</p>
         <img src="./images/diagrams/5.4_SDK.png" alt="Waypost SDK">
-        <p>The developer can use the SDK client’s evaluateFlag(flagName) method which will return a boolean value. This
+        <p>The developer can use the SDK client’s <code>evaluateFlag(flagName)</code> method which will return a boolean value. This
           returned value is used in the app’s code to deliver one feature or another.</p>
         <!-- Code Snippet -->
         <h4>5.4.1 How Feature Evaluation Works</h4>
-        <p>There are three flag attributes the evaluateFlag takes into account when evaluating:</p>
-        <p>1. The **status** of a feature flag (on or off).</p>
-        <p>2. **Custom assignments** on the flag.</p>
-        <p>3. **Rollout percentage** of the flag.</p>
+        <p>There are three flag attributes the <code>evaluateFlag</code> takes into account when evaluating:</p>
+        <ol>
+          <li>The <strong>status</strong> of a feature flag (on or off).</li>
+          <li><strong>Custom assignments</strong> on the flag.</li>
+          <li><strong>Rollout percentage</strong> of the flag.</li>
+        </ol>
         <img src="./images/diagrams/5.4.1_flag_evaluation_flow_chart.png" alt="Flag evaluation flow chart">
-        <p>The custom assignment and rollout evaluation takes an additional input, a unique identifier (often a user
+        <p>The custom assignment and rollout evaluation takes an additional input, a <strong>unique identifier</strong> (often a user
           ID). For custom assignments, the unique identifier associated with the user of the application is compared to
           the existing custom assignments on the flag.</p>
-        <p>For evaluating flags with rollout percentages (which includes all flags with experiments on them), a hashing
-          function takes the user’s unique identifier as input and outputs a number from 0 to 99. Then, if the hash is
+        <p>For evaluating flags with rollout percentages (which includes all flags with experiments on them), a <strong>hashing
+          function</strong> takes the user’s unique identifier as input and outputs a number from 0 to 99. Then, if the hash is
           less than the rollout percentage, the flag is “on” for that user, otherwise it is “off”.</p>
         <p>The above explanation is the basis of how flags are evaluated with rollout percentages, but there’s a
           downside. If an application has multiple flags with experiments, some users would be placed in the test group
           for the majority of experiments instead the placement being more random. This is problematic because it
           increases the likelihood the one experiment would affect another. It introduces an external variable.</p>
-        <p>That’s why Waypost uses an offset that’s assigned to each flag with a rollout percentage. The offset moves
+        <p>That’s why Waypost uses an <strong>offset</strong> that’s assigned to each flag with a rollout percentage. The offset moves
           the range of hashed user IDs that a flag is “on” for. For example, without an offset, two flags (Flag #1 and
           Flag #2) with 50% rollout percentages would both be “on” for users with hashed IDs from 0-49. </p>
         <img src="./images/diagrams/5.4.1_flag_rollout_1.png" alt="flag rollout 1">
@@ -887,22 +906,24 @@
           would receive Flag #1 and 5-54 would receive Flag #2.</p>
         <img src="./images/diagrams/5.4.1_flag_rollout_1.png" alt="flag rollout 1">
         <h3 id="section-5-5">5.5 How Flag Data is Sent From Manager To SDKs</h3>
-        <p>The SDK receives feature flag data from the Flag Provider Service via SSE (Server-Sent Events). </p>
+        <p>The SDK receives feature flag data from the Flag Provider Service via <strong>SSE</strong> (Server-Sent Events). </p>
         <p>When an application that contains the Waypost SDK starts running, it sends an initial GET request to the Flag
           Provider to fetch the current feature flag data.</p>
-        <p>The SDK key is attached to this request and is validated by the Flag Provider before sending back a response.
+        <p>The <strong>SDK key</strong> is attached to this request and is validated by the Flag Provider before sending back a response.
           If the SDK key is invalid, the data will not be returned. </p>
-        <p>Whenever a change is made to a feature flag, the Manager App sends a webhook to the Flag Provider. This then
+        <p>Whenever a change is made to a feature flag, the Manager App sends a <strong>webhook</strong> to the Flag Provider. This then
           triggers the Flag Provider to send the updated set of feature flags to the SDK via SSE.</p>
         <img src="./images/diagrams/5.5_data_flow.gif" alt="Waypost data flow">
         <h3 id="section-5-6">5.6 How A/B Testing Works with Waypost</h3>
         <p>A/B Testing with Waypost involves three components, the Application (with the Waypost SDK within it), the
           Events DB, and the Manager App.</p>
-        <p>The Application places users in treatments and sends user event data to the Events DB.</p>
-        <p>Developers manage experiments in the Manager App’s UI. This includes creating metrics for their experiments,
-          creating and stopping experiments, and viewing the results.</p>
-        <p>The Manager App’s Backend queries the Events DB for exposures and metric data and performs statistical
-          analysis, and stores the results of the analysis in its own database.</p>
+        <ul>
+          <li>The Application places users in <strong>treatments</strong> and sends <strong>user event data</strong> to the Events DB.</li>
+          <li>Developers manage experiments in the Manager App’s UI. This includes creating <strong>metrics</strong> for their experiments,
+            <strong>creating and stopping experiments</strong>, and viewing the results.</li>
+          <li>The Manager App’s Backend queries the Events DB for <strong>exposures</strong> and <strong>metric</strong> data and performs <strong>statistical
+            analysis</strong>, and stores the results of the analysis in its own database.</li>
+        </ul>
         <img src="./images/diagrams/5.6_user_event_diagram.png" alt="User event data diagram">
         <h4>5.6.1 Events DB</h4>
         <p>In order to perform an A/B test with Waypost, the developers must have a database (that we call the Events
@@ -913,40 +934,48 @@
         <p>Before starting an experiment, the developer must connect the Events DB to the Manager App. They also must
           create the metrics they want to measure in the experiment.</p>
         <p>To connect the Events DB and Manager App:</p>
-        <p>1. The Events DB must give read access to the Manager App</p>
-        <p>2. The developer must input the Events DB credentials and a query string into the database connection form in
-          the UI (shown above). The query string is used to query the Events DB for exposures and must return data in
-          the schema shown below.</p>
+        <ol>
+          <li>The Events DB must give read access to the Manager App</li>
+          <li>The developer must input the Events DB credentials and a query string into the database connection form in
+            the UI (shown above). The query string is used to query the Events DB for exposures and must return data in
+            the schema shown below.</li>
+        </ol>
         <img src="./images/diagrams/5.6.2_experiments_table.jpg" alt="Experiemnts table">
         <img src="./images/diagrams/5.6.1_database_connection_form.gif" alt="database connection form">
         <h4>5.6.3 Metrics</h4>
         <p>To add metrics, the developer must provide:</p>
-        <p>The name</p>
-        <p>The type of metric</p>
-        <p>A query string, which is used to query the Events DB</p>
+        <ul>
+          <li>The <strong>name</strong></li>
+          <li>The <strong>type</strong> of metric</li>
+          <li>A <strong>query string</strong>, which is used to query the Events DB</li>
+        </ul>
         <img src="./images/diagrams/5.6.3_new_metric_page.gif" alt="New metrics page">
         <p>After the Manager App confirms it can query the Events DB to obtain a metric, the developer can attach that
           metric to an experiment. Some common examples of metrics are:</p>
-        <p>Click-through rate</p>
-        <p>Signup rate</p>
-        <p>Time spent on site</p>
+        <ul>
+          <li>Click-through rate</li>
+          <li>Signup rate</li>
+          <li>Time spent on site</li>
+        </ul>
         <h4>5.6.4 Experiment Exposures Pipeline</h4>
         <img src="./images/diagrams/5.6.4_exposures_pipeline.png" alt="Exposures pipeline">
         <p>Once an experiment has been created, Waypost aggregates and analyzes this data. The Experiment Exposures
           Pipeline runs once every night to aggregate the number of users bucketed into each cohort of the experiment,
           and stores the aggregated data into a table in the Manager App’s database. In case the pipeline ever fails, it
           also checks for and backfills any missing data each time it runs. The Manager App then displays this as a line
-          chart essentially depicting the sample size of each cohort over time. The purpose of this visualization is to
-          help the developer understand the sample size and determine how much longer the experiment should run.</p>
+          chart essentially depicting the sample size of each cohort over time. <strong>The purpose of this visualization is to
+          help the developer understand the sample size and determine how much longer the experiment should run.</strong></p>
         <img src="./images/diagrams/5.6.4_exposures_graph.jpg" alt="Exposures Graph">
         <h4>5.6.5 Statistics Pipeline</h4>
         <p>Once the developer is ready to view the results of their experiment, they can click on the “Refresh Results”
           button in the Manager App’s UI. This triggers the Statistics Pipeline, which:</p>
-        <p>1. **Queries** the Events DB for the metrics being tracked for this experiment.</p>
-        <p>2. **Analyzes** this data using statistical tests, using the *t-test* for continuous metrics (count,
-          duration, revenue) and the *chi-squared* test for discrete metrics (binomial).</p>
-        <p>3. **Stores** the results in the Waypost DB, which will be displayed in the UI as a table (shown below).</p>
-        <p>Information on how to interpret the statistical results are included in our documentation site.</p>
+        <ol>
+          <li><strong>Queries</strong> the Events DB for the metrics being tracked for this experiment.</li>
+          <li><strong>Analyzes</strong> this data using statistical tests, using the *t-test* for continuous metrics (count,
+            duration, revenue) and the *chi-squared* test for discrete metrics (binomial).</li>
+          <li><strong>Stores</strong> the results in the Waypost DB, which will be displayed in the UI as a table (shown below).</li>
+        </ol>
+        <p>Information on how to interpret the statistical results are included in our <a href="https://waypost-io.github.io/documentation/">documentation site</a>.</p>
         <img src="./images/diagrams/5.6.5_results_page.jpg" alt="Results page">
         <h2 id="section-6">6. Engineering Decisions and Trade-Offs</h2>
         <h3 id="section-6-1">6.1 Hosted vs. Self-Hosted</h3>
@@ -954,26 +983,28 @@
           the Waypost application would be hosted on the cloud or hosted by our users. We opted for a self-hosted option
           for a couple reasons:</p>
         <h4>6.1.1 Flexibility in Deployment Options</h4>
-        <p>With a self-hosted product, users have the freedom to deploy Waypost in whichever environment they prefer,
+        <p>With a self-hosted product, users have the freedom to <strong>deploy Waypost in whichever environment they prefer</strong>,
           whether it’s deploying to a cloud service or hosting it on their local infrastructure. This means users can
           choose how the Waypost application is monitored and scaled.</p>
         <h4>6.1.2 Data Security and Availability</h4>
         <p>Having a feature flag management service hosted on-site keeps security concerns to a minimum by reducing an
           organization’s reliance on third-parties to host data. It’s impossible to know for sure that an external host
           will keep their data secure and that their servers will always be available. A self-hosted solution keeps
-          these concerns in-house with full control of security and availability.</p>
+          these concerns in-house with full control of <strong>security and availability</strong>.</p>
         <h3 id="section-6-2">6.2 Collecting User Event Data</h3>
-        <p>A critical component of A/B testing is the user event data that comes from the A and B versions of the
+        <p>A critical component of A/B testing is the <strong>user event data</strong> that comes from the A and B versions of the
           application. Without it, no analysis can be performed. To collect user event data for analysis, there were to
           options to choose from:</p>
-        <p>1. Let the **organization collect the data** and have Waypost query their database.</p>
-        <p>2. Have **Waypost collect the data** and store it in its own database.</p>
+        <ol>
+          <li>Let the <strong>organization collect the data</strong> and have Waypost query their database.</li>
+          <li>Have <strong>Waypost collect the data</strong> and store it in its own database.</li>
+        </ol>
         <img src="./images/diagrams/6.2_collecting_user_event_data.png" alt="Collecting user event data">
         <p>To make the decision, we considered our target user.</p>
         <p>Like most companies interested in A/B testing, Solar Flair already has existing infrastructure to collect and
           store user event data. If Waypost was designed to collect user event data in order to run its statistical
           analysis, then an organization would need to add additional logging functions into their code to accommodate
-          the second analytics platform. Waypost’s data collection system would be redundant.</p>
+          the second analytics platform. <strong>Waypost’s data collection system would be redundant</strong>.</p>
         <img src="./images/diagrams/6.2_collecting_user_event_data_2.png" alt="Collecting user event data 2">
         <p>With this in mind, we thought it would be advantageous to use the existing data instead of duplicating it by
           hosting our own analytics platform. By opting out of deploying an analytics platform with Waypost,
@@ -986,14 +1017,14 @@
           since there would be one instance for each visitor to the site. For example, if there were 500 users of an
           application with our SDK in it, the Manager App would have to manage 500 SSE connections in addition to
           handling the UI’s API calls and running statistical analysis. The sheer volume of requests creates a
-          bottleneck that could have adverse effects on either the clients or the users interacting with the Manager
+          <strong>bottleneck</strong> that could have adverse effects on either the clients or the users interacting with the Manager
           App.</p>
         <img src="./images/diagrams/6.3.1_backend_server_connected_to_SDK.png" alt="Backend connected to SDK">
-        <p>Another consequence of this architecture is that clients interface directly with the server that hosts
-          Waypost’s data. If a bad actor knew the IP address of the Manager App, it would be susceptible to attacks. The
+        <p>Another consequence of this architecture is that <strong>clients interface directly with the server that hosts
+          Waypost’s data</strong>. If a bad actor knew the IP address of the Manager App, it would be susceptible to attacks. The
           alternative of separating these concerns by only allowing clients to interact with the Flag Provider minimizes
           exposure to Waypost’s data, thus creating a layer of security.</p>
-        <p>Lastly, coupling the management and serving of flag data means that the two services must scale up together
+        <p>Lastly, coupling the management and serving of flag data means that the <strong>two services must scale up together</strong>
           instead of separately. With a separate Flag Provider, a developer can start up a new instance if the volume of
           SDK clients is too large for just a single instance to handle. This also allows an organization to reduce
           latency to the SDK clients by creating new flag provider instances physically closer to their users.</p>
@@ -1002,7 +1033,7 @@
           SDK clients. To create such a service, we need a way for the Flag Provider to receive updated flag data from
           the Manager App. The three major options we considered implementing were polling, a message broker, and
           webhooks.</p>
-        <p>Polling is a method of communication that uses HTTP requests sent at a predefined interval to receive updated
+        <p><strong>Polling</strong> is a method of communication that uses HTTP requests sent at a predefined interval to receive updated
           data. For example, if the Flag Provider used polling, it would send a GET request to the Manager App every 10
           seconds. As a response the Manager App would send the flag data. The downsides to this method are the lack of
           real-time updates as requests are sent every 10 seconds. Also, this method means that lots of unnecessary
@@ -1010,33 +1041,35 @@
           changes. If the flag data doesn’t change then the Flag Provider is sending GET requests for data that’s
           already up to date.</p>
         <img src="./images/diagrams/6.3.2_polling.png" alt="Polling">
-        <p>To remedy the issues with polling, it’s possible to use a similar method known as “long polling”. With long
-          polling, a request gets sent to the server, and a response is only sent back when the server has a message to
+        <p>To remedy the issues with polling, it’s possible to use a similar method known as “long polling”. With <strong>long
+          polling</strong>, a request gets sent to the server, and a response is only sent back when the server has a message to
           send. In the context of Waypost, an SDK client would send a request to the Flag Provider. If the flag data has
           changed since the previous GET request, then the server would send back the updated flags. Otherwise, the
           server would wait to send a response until the flags are updated. Despite its benefits, we decided against
           long polling because it still requires a high volume of requests to be verified and processed by the server.
         </p>
         <img src="./images/diagrams/6.3.2_long_polling.png" alt="Long-polling">
-        <p>Another option we considered was a message broker. A message broker is a commonly used tool that allows
+        <p>Another option we considered was a <strong>message broker</strong>. A message broker is a commonly used tool that allows
           services to communicate with one another. A message broker exchanges information through a system of
           publishers and subscribers. Within the context of Waypost, here’s how a message broker would work:</p>
-        <p>1. In the event that the flag data is updated, a message containing the flag data is published to the message
-          broker.</p>
-        <p>2. The Flag Provider pulls the message from the message broker and saves the flag data to memory.</p>
+        <ol>
+          <li>In the event that the flag data is updated, a message containing the flag data is published to the message
+            broker.</li>
+          <li>The Flag Provider pulls the message from the message broker and saves the flag data to memory.</li>
+        </ol>
         <p>A message broker is a good option because communication between the two services will be event-driven and
-          happen in real-time. Also, the message broker gives some degree of fault tolerance. If the Flag Provider goes
+          happen in real-time. Also, the message broker gives some degree of <strong>fault tolerance</strong>. If the Flag Provider goes
           down for any reason, messages sent from the Manager App will be available once it is up and running again.
           Additionally, a message broker eliminates the need to create API endpoints on the two services.</p>
-        <p>The main trade-offs to this approach are that it would increase the complexity of the architecture. There’s
+        <p>The main trade-offs to this approach are that it would increase the <strong>complexity</strong> of the architecture. There’s
           now another component to maintain and secure. Message brokers can also make debugging difficult because
           there’s now another component logging errors.</p>
         <p>Due to these reasons, we turned to another option, webhooks.</p>
         <img src="./images/diagrams/6.3.2_message_broker.png" alt="Message Broker">
-        <p>A webhook is an HTTP request that gets sent to another server when a predefined event occurs. In our case,
+        <p>A <strong>webhook</strong> is an HTTP request that gets sent to another server when a predefined event occurs. In our case,
           whenever an update is made to either the feature flag data or the SDK key, the Manager App sends a webhook to
           the Flag Provider with the updated data. The Flag Provider saves the data to memory and forwards the flag data
-          to any SDK clients that are connected. Using this event-driven approach of sending a webhook on updates allows
+          to any SDK clients that are connected. Using this <strong>event-driven</strong> approach of sending a webhook on updates allows
           the Flag Provider to have the latest version of the flag data.</p>
         <img src="./images/diagrams/6.3.2_webhook.png" alt="Webhook">
         <p>The Flag Provider also should only make updates to its flag data if the webhook it received was from the
@@ -1052,7 +1085,7 @@
         <p>The options we considered for communicating between SDK clients and the Flag Provider were WebSockets and
           Server-Sent events (SSE).</p>
         <h4>6.4.1 WebSockets vs. Server-Sent Events</h4>
-        <p>WebSocket is a communication protocol that allows bidirectional communication through a single TCP
+        <p><strong>WebSocket</strong> is a communication protocol that allows <strong>bidirectional communication</strong> through a single TCP
           connection. The WebSocket protocol can be described using three phases:</p>
         <p>1. An initial GET request with some special headers are sent from the client to the server. This allows the
           server to establish a connection using the WebSocket protocol.</p>
@@ -1065,32 +1098,38 @@
           using WebSocket is that it adds some development overhead. It typically requires more code than other methods,
           and it bars us from using useful HTTP functionality.</p>
         <img src="./images/diagrams/6.4.1_websocket.png" alt="WebSocket">
-        <p>Server-Sent Events, or SSE, only allows for unidirectional communication between the server and a client.
+        <p>Server-Sent Events, or <strong>SSE</strong>, only allows for <strong>unidirectional communication</strong> between the server and a client.
           Whenever feature flag data is updated on the Flag Provider, new data is sent to all the clients that are
           connected. This approach minimizes latency, creates a real-time stream of feature flag data, and reduces the
           number of connections that need to be made with the server. Here’s how SSE works:</p>
-        <p>1. The client sends a request to the server.</p>
-        <p>2. The server responds, confirming that the connection has been made.</p>
-        <p>3. The server can now send messages to the client in response to events.</p>
+        <ol>
+          <li>The client sends a request to the server.</li>
+          <li>The server responds, confirming that the connection has been made.</li>
+          <li>The server can now send messages to the client in response to events.</li>
+        </ol>
         <p>The drawback to using SSE is that the connection can occasionally be dropped. Connections are dropped when a
           browser exceeds six open connections or the connection remains inactive for 30 seconds. For this reason, the
           Waypost SDK automatically re-establishes lost connections after a connection is lost using the EventSource
           API.</p>
         <img src="./images/diagrams/6.4.1_SSE.png" alt="SSE">
-        <p>To ensure that each SSE connection is valid, the SDK client sends an SDK key in the initial request to the
+        <p>To ensure that each SSE connection is valid, the SDK client sends an <strong>SDK key</strong> in the initial request to the
           Flag Provider. The Flag Provider, who stores a copy of the SDK key, checks that the stored key matches the key
           provided by the client. Invalid keys are rejected, while valid ones are permitted to make a connection.</p>
         <h3 id="section-6-5">6.5 Statistics Pipeline</h3>
         <p>The statistics pipeline is a crucial piece of our architecture. The pipeline consists of three steps:</p>
-        <p>1. Aggregate the metrics from the Events DB during the experiment’s time frame.</p>
-        <p>2. Group the data by experiment and by treatment group.</p>
-        <p>3. Run statistical tests on the data and write results.</p>
+        <ol>
+          <li>Aggregate the metrics from the Events DB during the experiment’s time frame.</li>
+          <li>Group the data by experiment and by treatment group.</li>
+          <li>Run statistical tests on the data and write results.</li>
+        </ol>
         <p>This pipeline could take a lot of time and resources to run if a company had a large volume of user event
           data and several experiments running. Thus, it was important to decide:</p>
-        <p>**How often to run** this pipeline.</p>
-        <p>Whether to deploy on a **separate server** or on the **Manager App’s server**. If the pipeline took a long
+        <ul>
+        <li><strong>How often to run</strong> this pipeline.</li>
+        <li>Whether to deploy on a <strong>separate server</strong> or on the <strong>Manager App’s server</strong>. If the pipeline took a long
           time to run, then having it on the Manager App’s back-end could block other operations such as updates to
-          flags.</p>
+          flags.</li>
+        </ul>
         <img src="./images/diagrams/6.5_seperate_stats_server.png" alt="seperate stats server">
         <h4>6.5.1 How often to run the pipeline</h4>
         <p>If the pipeline was run frequently, such as each time the page was loaded, the developer using Waypost could
@@ -1100,19 +1139,19 @@
           general rule, experimenters should not look at an experiment’s results until it is completed, because peeking
           increases the false positive rate [7]. That means there isn’t a need to constantly refresh results.</p>
         <p>Therefore, Waypost has a button called “Refresh Results”, which triggers the statistics pipeline when
-          clicked. This means that the results will only be computed when necessary, which saves server resources.</p>
+          clicked. This means that the <strong>results will only be computed when necessary, which saves server resources</strong>.</p>
         <h4>6.5.2 Deploy pipeline on separate server or on Manager App’s server</h4>
-        <p>A concern with this approach was that the pipeline may take a long time to run, blocking other operations and
+        <p>A concern with this approach was that the pipeline may take a long time to run, <strong>blocking other operations</strong> and
           leading to a negative experience for the user. However, the pipeline took less than a second to run when
           tested with a dataset of 10,000 users in the experiment with 2 metrics (our estimate for the average Waypost
           user), thus eliminating that concern. Given the performance, Waypost has the statistics pipeline on the same
-          server as the Manager App instead of provisioning a dedicated server for it. The pipeline runs infrequently
+          server as the Manager App instead of provisioning a dedicated server for it. <strong>The pipeline runs infrequently
           and typically takes less than a second to run, therefore one does not have to worry about it blocking other
-          operations.</p>
+          operations.</strong></p>
         <h2 id="section-7">7. Future Work</h2>
         <h3 id="section-7-1">7.1 Extended Database Integration</h3>
-        <p>As Waypost currently exists, developers can only connect to an external PostgreSQL database when analyzing
-          user event data. In reality, organizations use a variety of different database technologies. Companies who
+        <p>As Waypost currently exists, developers can only connect to an external <strong>PostgreSQL</strong> database when analyzing
+          user event data. In reality, organizations use a variety of <strong>different database technologies</strong>. Companies who
           store user event data with something besides PostgreSQL will need to either load the data into a Postgres
           database themselves, or alter Waypost’s source code to be able to connect to something different. A future
           iteration of Waypost would aim to address this need by adding more database support.</p>
@@ -1120,13 +1159,13 @@
         <p>Another valuable addition to Waypost would be to separate feature flag data by application. If an
           organization runs multiple applications, it would be ideal for each application to only receive feature flag
           data that pertained to that it. Currently, Waypost sends each application all the feature flag data.
-          Separating feature flags by application would reduce the amount of data being sent to each SDK client and also
-          make it so applications would only be able to read their own feature flag data.</p>
+          Separating feature flags by application would <strong>reduce the amount of data being sent to each SDK client</strong> and also
+          make it so applications would only be able to read their <strong>own</strong> feature flag data.</p>
         <h3 id="section-7-3">7.3 Login Capability</h3>
         <p>A login capability would have many useful benefits, especially in terms of administration. By requiring users
-          to log in to the management application, an admin would be able to keep track of and control who edits data
-          and who has permission to edit data. To adhere to the principle of least privilege, an admin could make sure
-          that each team only has access to the exact data they need. Also, if a flag looks like it was toggled
+          to log in to the management application, an admin would be able to keep track of and control <strong>who edits data
+          and who has permission</strong> to edit data. To adhere to the principle of least privilege, an admin could make sure
+          that each team <strong>only has access</strong> to the exact data they need. Also, if a flag looks like it was toggled
           erroneously, an admin could check who edited it last and reach out to them to discuss whether it was a mistake
           or not.</p>
         <h3 id="section-7-4">7.4 Additional Language Support for SDKs</h3>
@@ -1137,31 +1176,31 @@
         <h2 id="section-8">8. Glossary</h2>
         <ul>
           <li>
-            <b>Metrics</b> - measures of quantitative assessment commonly used for assessing, comparing, and tracking
+            <strong>Metrics</strong> - measures of quantitative assessment commonly used for assessing, comparing, and tracking
             performance or production
           </li>
           <li>
-            <b>Controlled Experiment</b> - an experiment in which all the variable factors in an experimental group and
+            <strong>Controlled Experiment</strong> - an experiment in which all the variable factors in an experimental group and
             a comparison control group are kept the same except for one variable factor in the experimental group that
             is changed or altered
           </li>
           <li>
-            <b>Statistically Significant</b> - a determination that a relationship between two or more variables is
+            <strong>Statistically Significant</strong> - a determination that a relationship between two or more variables is
             caused by something other than chance.
           </li>
           <li>
-            <b>Data Pipeline</b> - a set of actions that ingest raw data from disparate sources and move the data to a
+            <strong>Data Pipeline</strong> - a set of actions that ingest raw data from disparate sources and move the data to a
             destination for storage and analysis <a
               href="https://www.stitchdata.com/resources/what-is-data-pipeline">[source]</a>.
           </li>
           <li>
-            <b>Backfill</b> - any process that involves modifying or adding new data to existing records in a dataset
+            <strong>Backfill</strong> - any process that involves modifying or adding new data to existing records in a dataset
           </li>
           <li>
-            <b>Continuous data</b> - data that can take any value within a range, such as a person’s weight
+            <strong>Continuous data</strong> - data that can take any value within a range, such as a person’s weight
           </li>
           <li>
-            <b>Discrete data</b> - data that is countable and distinct, and can only take certain values, such as number
+            <strong>Discrete data</strong> - data that is countable and distinct, and can only take certain values, such as number
             of signups.
           </li>
         </ul>
