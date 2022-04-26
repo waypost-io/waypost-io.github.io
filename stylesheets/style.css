@@ -178,6 +178,16 @@ li {
   line-height: 1.5rem;
 }
 
+figure {
+  margin: 18px 0;
+  text-align: center;
+}
+
+figcaption {
+  font-size: 0.8em;
+  color: var(--gray-700);
+}
+
 /* Header */
 #header {
   align-items: center;

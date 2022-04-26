@@ -692,12 +692,16 @@
           “off.” If the flag is turned “on”, the conditional returns <code>true</code> and the user receives one version of the
           application. If the flag is turned “off”, the conditional returns <code>false</code> and they receive another.
         </p>
-        <img src="./images/diagrams/3.2_flag_evaluation.png" alt="Flag evaluation">
+        <figure>
+          <img src="./images/diagrams/3.2_flag_evaluation.png" alt="Flag evaluation">
+          <figcaption>An application using feature flags to serve multiple versions of a website</figcaption>
+        </figure>
         <pre class="code-block"><code>  if (evaluateFlag('Quote Form')) {
     renderNewQuoteForm()
   } else {
     renderOldQuoteForm()
   }</code></pre>
+        <figcaption>Example of a feature flag in application code</figcaption>
         <p>
           One can wrap as much or as little code in the feature flag as they like. It could be something big like a
           completely different UI, or something small, like different colors on a “Checkout” button.
@@ -770,8 +774,11 @@
         </ul>
         <p>The config file’s shortcomings make this option unappealing.</p>
         <h4>4.1.2 Database</h4>
-        <img src="./images/diagrams/4.1.2_application_to_database.png" alt="applicaiton to database" width="300px">
-        <img src="./images/diagrams/4.1.2_flag_in_database_table.png" alt="application to database table">
+        <figure>
+          <img src="./images/diagrams/4.1.2_application_to_database.png" alt="applicaiton to database" width="300px">
+          <img src="./images/diagrams/4.1.2_flag_in_database_table.png" alt="application to database table">
+          <figcaption>Flags table in the database</figcaption>
+        </figure>
         <p>
           A slightly better option for storing flag data is by using a database. With this configuration, Solar Flair’s
           app would query the database each time a flag’s status is needed and updates to the flags would be made using
@@ -814,7 +821,10 @@
             ideally in real-time so that features can be shut off immediately if needed.
           </li>
         </ol>
-        <img src="./images/diagrams/4.1.3_diy_architecture.png" alt="diy architecture">
+        <figure>
+          <img src="./images/diagrams/4.1.3_diy_architecture.png" alt="diy architecture">
+          <figcaption>Minimum Architecture of Feature Flag and A/B Testing Platform</figcaption>
+        </figure>
         <h4>4.1.4 Building the A/B Testing Functionality</h4>
         <p>
           In addition to the infrastructure for feature flag management, one must also build the A/B testing
@@ -926,7 +936,11 @@
           as the “Events DB”. For example, Solar Flair’s “Application” would be their web application that renders their
           website and their “Events DB” would be their existing user event database.
         </p>
-        <img src="./images/diagrams/5.1_waypost_architecture.png" alt="Waypost architecture" width="800px">
+        <figure>
+          <img src="./images/diagrams/5.1_waypost_architecture.png" alt="Waypost architecture" width="800px">
+          <figcaption>Waypost Architecture</figcaption>
+        </figure>
+
         <p>
           <span class="underline">General Overview of the Components and their responsibilities:</span>
         </p>
@@ -1079,7 +1093,10 @@
           <li><strong>Custom assignments</strong> on the flag.</li>
           <li><strong>Rollout percentage</strong> of the flag.</li>
         </ol>
-        <img src="./images/diagrams/5.4.1_flag_evaluation_flow_chart.png" alt="Flag evaluation flow chart">
+        <figure>
+          <img src="./images/diagrams/5.4.1_flag_evaluation_flow_chart.png" alt="Flag evaluation flow chart">
+          <figcaption>How the SDK evaluates feature flags</figcaption>
+        </figure>
         <p>
           The custom assignment and rollout evaluation takes an additional input, a <strong>unique identifier</strong> (often a user
           ID). For custom assignments, the unique identifier associated with the user of the application is compared to
@@ -1101,12 +1118,18 @@
           the range of hashed user IDs that a flag is “on” for. For example, without an offset, two flags (Flag #1 and
           Flag #2) with 50% rollout percentages would both be “on” for users with hashed IDs from 0-49.
         </p>
-        <img src="./images/diagrams/5.4.1_flag_rollout_1.png" alt="flag rollout 1" width="400px">
+        <figure>
+          <img src="./images/diagrams/5.4.1_flag_rollout_1.png" alt="flag rollout 1" width="400px">
+          <figcaption>Rollouts without offset</figcaption>
+        </figure>
         <p>
           If instead Flag #1 is given an offset of 30 and Flag #2 is given an offset of 5, then hashed IDs from 30-79
           would receive Flag #1 and 5-54 would receive Flag #2.
         </p>
-        <img src="./images/diagrams/5.4.1_flag_rollout_1.png" alt="flag rollout 1" width="400px">
+        <figure>
+          <img src="./images/diagrams/5.4.1_flag_rollout_1.png" alt="flag rollout 1" width="400px">
+          <figcaption>Rollouts with offset</figcaption>
+        </figure>
         <h3 id="section-5-5">5.5 How Flag Data is Sent From Manager To SDKs</h3>
         <p>
           The SDK receives feature flag data from the Flag Provider Service via <strong>SSE</strong> (Server-Sent Events).
@@ -1166,8 +1189,14 @@
             the schema shown below.
           </li>
         </ol>
-        <img src="./images/diagrams/5.6.2_experiments_table.jpg" alt="Experiments table" width="600px">
-        <img src="./images/diagrams/5.6.1_database_connection_form.gif" alt="database connection form" width="800px">
+        <figure>
+          <img src="./images/diagrams/5.6.2_experiments_table.jpg" alt="Experiments table" width="600px">
+          <figcaption>Organization’s experiments table in the “Events DB” with desired schema (user_id, experiment_id, treatment, timestamp)</figcaption>
+        </figure>
+        <figure>
+          <img src="./images/diagrams/5.6.1_database_connection_form.gif" alt="database connection form" width="800px">
+          <figcaption>Connecting to the Events DB from the UI. Note: the Events DB doesn’t have to be local. One can connect to their Events DB over the internet.</figcaption>
+        </figure>
         <h4>5.6.3 Metrics</h4>
         <p>To add metrics, the developer must provide:</p>
         <ul>
@@ -1247,7 +1276,12 @@
           <li>Let the <strong>organization collect the data</strong> and have Waypost query their database.</li>
           <li>Have <strong>Waypost collect the data</strong> and store it in its own database.</li>
         </ol>
-        <img src="./images/diagrams/6.2_collecting_user_event_data.png" alt="Collecting user event data" width="1000px">
+        <figure>
+          <img src="./images/diagrams/6.2_collecting_user_event_data.png" alt="Collecting user event data" width="1000px">
+          <figcaption>
+            Two architectures: Organization collects the data & query their database (left) vs Waypost collects the data (right)
+          </figcaption>
+        </figure>
         <p>
           To make the decision, we considered our target user.</p>
         <p>Like most companies interested in A/B testing, Solar Flair already has existing infrastructure to collect and
@@ -1255,7 +1289,10 @@
           analysis, then an organization would need to add additional logging functions into their code to accommodate
           the second analytics platform. <strong>Waypost’s data collection system would be redundant</strong>.
         </p>
-        <img src="./images/diagrams/6.2_collecting_user_event_data_2.png" alt="Collecting user event data 2" width="500px">
+        <figure>
+          <img src="./images/diagrams/6.2_collecting_user_event_data_2.png" alt="Collecting user event data 2" width="500px">
+          <figcaption>If Waypost collected the data and user events were already being collected, Waypost’s collection system would be redundant</figcaption>
+        </figure>
         <p>
           With this in mind, we thought it would be advantageous to use the existing data instead of duplicating it by
           hosting our own analytics platform. By opting out of deploying an analytics platform with Waypost,
@@ -1302,7 +1339,10 @@
           changes. If the flag data doesn’t change then the Flag Provider is sending GET requests for data that’s
           already up to date.
         </p>
-        <img src="./images/diagrams/6.3.2_polling.png" alt="Polling">
+        <figure>
+          <img src="./images/diagrams/6.3.2_polling.png" alt="Polling">
+          <figcaption>Polling</figcaption>
+        </figure>
         <p>
           To remedy the issues with polling, it’s possible to use a similar method known as “long polling”. With <strong>long
           polling</strong>, a request gets sent to the server, and a response is only sent back when the server has a message to
@@ -1311,7 +1351,10 @@
           server would wait to send a response until the flags are updated. Despite its benefits, we decided against
           long polling because it still requires a high volume of requests to be verified and processed by the server.
         </p>
-        <img src="./images/diagrams/6.3.2_long_polling.png" alt="Long-polling">
+        <figure>
+          <img src="./images/diagrams/6.3.2_long_polling.png" alt="Long-polling">
+          <figcaption>Long Polling</figcaption>
+        </figure>
         <p>
           Another option we considered was a <strong>message broker</strong>. A message broker is a commonly used tool that allows
           services to communicate with one another. A message broker exchanges information through a system of
@@ -1336,7 +1379,10 @@
           there’s now another component logging errors.
         </p>
         <p>Due to these reasons, we turned to another option, webhooks.</p>
-        <img src="./images/diagrams/6.3.2_message_broker.png" alt="Message Broker">
+        <figure>
+          <img src="./images/diagrams/6.3.2_message_broker.png" alt="Message Broker">
+          <figcaption>Message Broker</figcaption>
+        </figure>
         <p>
           A <strong>webhook</strong> is an HTTP request that gets sent to another server when a predefined event occurs. In our case,
           whenever an update is made to either the feature flag data or the SDK key, the Manager App sends a webhook to
@@ -1344,7 +1390,10 @@
           to any SDK clients that are connected. Using this <strong>event-driven</strong> approach of sending a webhook on updates allows
           the Flag Provider to have the latest version of the flag data.
         </p>
-        <img src="./images/diagrams/6.3.2_webhook.png" alt="Webhook">
+        <figure>
+          <img src="./images/diagrams/6.3.2_webhook.png" alt="Webhook">
+          <figcaption>Webhooks</figcaption>
+        </figure>
         <p>
           The Flag Provider also should only make updates to its flag data if the webhook it received was from the
           Manager App. To implement this, the Manager App attaches a header to each webhook with a secret key that only
@@ -1388,7 +1437,10 @@
           using WebSocket is that it adds some development overhead. It typically requires more code than other methods,
           and it bars us from using useful HTTP functionality.
         </p>
-        <img src="./images/diagrams/6.4.1_websocket.png" alt="WebSocket" width="400px">
+        <figure>
+          <img src="./images/diagrams/6.4.1_websocket.png" alt="WebSocket" width="400px">
+          <figcaption>WebSockets</figcaption>
+        </figure>
         <p>
           Server-Sent Events, or <strong>SSE</strong>, only allows for <strong>unidirectional communication</strong> between the server and a client.
           Whenever feature flag data is updated on the Flag Provider, new data is sent to all the clients that are
@@ -1406,7 +1458,10 @@
           Waypost SDK automatically re-establishes lost connections after a connection is lost using the EventSource
           API.
         </p>
-        <img src="./images/diagrams/6.4.1_SSE.png" alt="SSE">
+        <figure>
+          <img src="./images/diagrams/6.4.1_SSE.png" alt="SSE">
+          <figcaption>Server-Sent Events</figcaption>
+        </figure>
         <p>
           To ensure that each SSE connection is valid, the SDK client sends an <strong>SDK key</strong> in the initial request to the
           Flag Provider. The Flag Provider, who stores a copy of the SDK key, checks that the stored key matches the key
