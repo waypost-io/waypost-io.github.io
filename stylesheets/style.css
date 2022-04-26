@@ -390,6 +390,7 @@ li {
 
 #case-study-content p {
   margin: 24px 0;
+  line-height: 1.8;
 }
 
 #case-study-content img {
@@ -456,10 +457,6 @@ li {
 .prose em {
   font-style: italic;
 }
-
-/* #case-study img {
-  width: 700px;
-} */
 
 .prose code {
   background-color: var(--gray-100);
