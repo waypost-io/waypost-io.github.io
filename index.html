@@ -498,7 +498,7 @@
           subscription fee, so the team wants to be sure that this fee is worth the cost and gets them enough new
           customers to gain a profit. In addition, since it’s a 3rd-party software/API that may get updated, they don’t
           want their entire site to go down if it gets a major update and the quote calculation doesn’t work. </p>
-        <img src="./images/diagrams/1.1_feature_comparison.png" alt="feature comparison">
+        <img src="./images/diagrams/1.1_feature_comparison.png" alt="feature comparison" width="500px">
         <p>Solar Flair needs a way to <strong>measure and analyze user behavior</strong> when they use the new quote feature vs. the
           old one. In other words:</p>
 
@@ -529,7 +529,7 @@
           users is assigned to receive one version, and another random group of users is assigned the other version, for
           a certain period of time. The A/B test can be considered the most basic kind of <strong>randomized controlled
           experiment</strong>. In its simplest form, there are two treatments and one acts as the control for the other [1].</p>
-        <img src="./images/diagrams/2.1_A_and_b_features.png" alt="A and B features">
+        <img src="./images/diagrams/2.1_A_and_b_features.png" alt="A and B features" width="300px">
         <h3 id="section-2-2">2.2 Interpreting Results</h3>
         <p>After an A/B test has finished running, one can analyze the results to make a data-driven decision. Every
           experiment should have a primary <strong>metric</strong>, and possibly secondary metrics, by which it will be evaluated. The
@@ -610,7 +610,7 @@
           their quote form, then those two new features would not overlap. If instead they wanted to test changing the
           form’s submit button and wanted to see how each combination of the form and button affected user behavior,
           they’d need four total deployments.</p>
-        <img src="./images/diagrams/3.1.2_multivariate_testing.png" alt="multivariate testing">
+        <img src="./images/diagrams/3.1.2_multivariate_testing.png" alt="multivariate testing" width="500px">
         <p>Regardless of whether the additional new features being tested are overlapping or not, more tests results in:
         </p>
         <ul>
@@ -681,7 +681,7 @@
         </ul>
         <p>The config file’s shortcomings make this option unappealing.</p>
         <h4>4.1.2 Database</h4>
-        <img src="./images/diagrams/4.1.2_application_to_database.png" alt="applicaiton to database">
+        <img src="./images/diagrams/4.1.2_application_to_database.png" alt="applicaiton to database" width="300px">
         <img src="./images/diagrams/4.1.2_flag_in_database_table.png" alt="application to database table">
         <p>A slightly better option for storing flag data is by using a database. With this configuration, Solar Flair’s
           app would query the database each time a flag’s status is needed and updates to the flags would be made using
@@ -901,10 +901,10 @@
         <p>That’s why Waypost uses an <strong>offset</strong> that’s assigned to each flag with a rollout percentage. The offset moves
           the range of hashed user IDs that a flag is “on” for. For example, without an offset, two flags (Flag #1 and
           Flag #2) with 50% rollout percentages would both be “on” for users with hashed IDs from 0-49. </p>
-        <img src="./images/diagrams/5.4.1_flag_rollout_1.png" alt="flag rollout 1">
+        <img src="./images/diagrams/5.4.1_flag_rollout_1.png" alt="flag rollout 1" width="400px">
         <p>If instead Flag #1 is given an offset of 30 and Flag #2 is given an offset of 5, then hashed IDs from 30-79
           would receive Flag #1 and 5-54 would receive Flag #2.</p>
-        <img src="./images/diagrams/5.4.1_flag_rollout_1.png" alt="flag rollout 1">
+        <img src="./images/diagrams/5.4.1_flag_rollout_1.png" alt="flag rollout 1" width="400px">
         <h3 id="section-5-5">5.5 How Flag Data is Sent From Manager To SDKs</h3>
         <p>The SDK receives feature flag data from the Flag Provider Service via <strong>SSE</strong> (Server-Sent Events). </p>
         <p>When an application that contains the Waypost SDK starts running, it sends an initial GET request to the Flag
@@ -940,7 +940,7 @@
             the UI (shown above). The query string is used to query the Events DB for exposures and must return data in
             the schema shown below.</li>
         </ol>
-        <img src="./images/diagrams/5.6.2_experiments_table.jpg" alt="Experiemnts table">
+        <img src="./images/diagrams/5.6.2_experiments_table.jpg" alt="Experiments table" width="600px">
         <img src="./images/diagrams/5.6.1_database_connection_form.gif" alt="database connection form">
         <h4>5.6.3 Metrics</h4>
         <p>To add metrics, the developer must provide:</p>
