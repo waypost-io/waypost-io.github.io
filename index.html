@@ -470,16 +470,15 @@
         <!-- Case study goes here -->
         <!-- Section 1 -->
         <h2 id="section-1">1. Introduction</h2>
-        <p><strong>Waypost is an open-source, lightweight, self-hosted feature flag management platform that specializes in A/B
-          Testing</strong>, providing analytical insights for your experiments on both the front-end and back-end.</p>
-        <p>As a team of developers starts to iterate on their application and develop new features, they’ll want to have
-          confidence that the choices they’re making are benefiting the business. They’ll want to collect and analyze
-          the behavior of users of their application in order to gain insights on whether their choices are helping,
-          hurting, or having no effect on their bottom line. They’ll also need an easy and quick way to manage these new
-          features and to turn them off if something goes wrong.</p>
-        <p>By using feature flags with Waypost to manage and test their new features, developers can confidently push
-          new features to their applications with the knowledge that the risk of the feature hurting their business is
-          minimized.</p>
+        <p>
+          <strong>Waypost is an open-source, lightweight, self-hosted feature flag management platform that specializes in A/B Testing.</strong>
+        </p>
+        <p>
+          Waypost provides feature flag management infrastructure that integrates with an organization’s application and existing user event logging system. Waypost allows developers to control functionality remotely without deploying code and to run A/B tests to determine how a new feature impacts user behavior and business goals.
+        </p>
+        <p>
+          This case study explores the engineering problems Waypost addresses, how it works, and some of the key engineering decisions we made while building it. To better understand how an organization would benefit from integrating with Waypost, we introduce a hypothetical company, Solar Flair.
+        </p>
         <h3 id="section-1-1">1.1 Hypothetical Waypost User</h3>
         <p>Solar Flair is a solar panel installation company with a handful of software engineers on their staff. Their
           main way of gaining business is via their website’s landing page. As is standard in the solar panel
@@ -786,11 +785,23 @@
           of this architecture is it would allow flag data to be <strong>updated without redeployment</strong>. [4]
         </p>
         <p>
-          However, it still doesn’t solve the core problem of dynamically evaluating the flags. In addition, <strong>neither of
-          these two options address the analysis of the data</strong>. What Solar Flair needs is something bigger and more
-          robust. A place to easily manage their flags and their experiments. What they need is a <strong>feature flag
-          management service</strong>, specifically one that can handle A/B testing.
+          However, there are some downsides to this architecture that makes it unappealing for Solar Flair’s use case:
         </p>
+        <ul>
+          <li>
+            It doesn’t solve the core problem of <strong>dynamically evaluating the flags</strong>.
+          </li>
+          <li>
+            It <strong>restricts</strong> management of the flags to technical members of the team who know SQL.
+          </li>
+          <li>
+            It doesn’t address <strong>analyzing the user event data</strong>.
+          </li>
+        </ul>
+        <p>
+          What Solar Flair needs is something bigger and more robust: a place to easily manage their flags and their experiments. What they need is a feature flag management service, specifically one that can handle A/B testing.
+        </p>
+
         <h4>4.1.3 Building a Feature Flag Management Service</h4>
         <p>
           Feature flag management services are platforms that allow developers to view all their feature flags in one
@@ -930,7 +941,7 @@
         <img src="./images/diagrams/5_competitor_comparison.png" alt="competitor comparison">
         <h3 id="section-5-1">5.1 Architecture Overview</h3>
         <p>
-          Waypost provides a feature flag and A/B testing solution through the integration of it’s own components
+          Waypost provides a feature flag and A/B testing solution through the integration of its own components
           (colored blue) and some existing infrastructure (colored red). The existing infrastructure is the application
           that is using feature flags and a PostgreSQL database for storing user event data, which will be referred to
           as the “Events DB”. For example, Solar Flair’s “Application” would be their web application that renders their
@@ -1030,7 +1041,7 @@
           The Manager App’s PostgreSQL <strong>Database</strong> stores persistent experiment and flag data. Some examples are:
         </p>
         <ul>
-          <li><strong>Data pertaining to a flag</strong>, like it’s name, status (on/off), and rollout percentage.</li>
+          <li><strong>Data pertaining to a flag</strong>, like its name, status (on/off), and rollout percentage.</li>
           <li><strong>Flag event data</strong>, like at what time a flag was toggled, created, edited, or deleted.</li>
           <li><strong>Custom assignment data</strong>, which is used to evaluate a flag a desired way for specific users.</li>
           <li><strong>High-level experiment data</strong>, like id of the flag an experiment is on, the metrics being measured, the amount
