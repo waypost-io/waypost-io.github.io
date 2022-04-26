@@ -462,10 +462,7 @@ li {
   color: var(--gray-600);
   font-family: monospace;
   font-weight: normal;
-  font-size: 0.75rem;
   border-radius: 0.25rem;
-  padding: 0.25rem 0.375rem;
-  line-height: 1.5rem;
 }
 
 .prose code:before,
