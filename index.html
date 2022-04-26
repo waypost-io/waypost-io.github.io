@@ -697,7 +697,11 @@
           application. If the flag is turned “off”, the conditional returns <code>false</code> and they receive another.
         </p>
         <img src="./images/diagrams/3.2_flag_evaluation.png" alt="Flag evaluation">
-        <!-- Code snippet here -->
+        <pre class="code-block"><code>  if (evaluateFlag('Quote Form')) {
+    renderNewQuoteForm()
+  } else {
+    renderOldQuoteForm()
+  }</code></pre>
         <p>
           One can wrap as much or as little code in the feature flag as they like. It could be something big like a
           completely different UI, or something small, like different colors on a “Checkout” button.
@@ -755,6 +759,10 @@
           file would contain the flag data in a data structure and could look something like the code below:
         </p>
         <!-- Code snippet -->
+        <pre class="code-block"><code>  export default const flags = {
+    "new quote": false,
+    "other feature": true
+  }</code></pre>
         <p>The trade-offs with the config file are:</p>
         <ul>
           <li>
@@ -1063,6 +1071,11 @@
           returned value is used in the app’s code to deliver one feature or another.
         </p>
         <!-- Code Snippet -->
+        <pre class="code-block"><code>  if (sdkClient.evaluateFlag("Quote Form")) {
+    renderNewForm();
+  } else {
+    renderOldForm();
+  }</code></pre>
         <h4>5.4.1 How Feature Evaluation Works</h4>
         <p>There are three flag attributes the <code>evaluateFlag</code> takes into account when evaluating:</p>
         <ol>

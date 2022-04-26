@@ -159,6 +159,16 @@ code {
   font-family: monospace;
 }
 
+.code-block {
+  background-color: var(--black);
+  color: var(--offwhite);
+  padding: 24px 28px 18px 0px;
+  border-radius: 12px;
+  width: max-content;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  line-height: 1.25;
+}
+
 ul, ol {
   margin: 15px;
 }
@@ -457,18 +467,18 @@ li {
   font-style: italic;
 }
 
-.prose code {
+/* .prose code {
   background-color: var(--gray-100);
   color: var(--gray-600);
   font-family: monospace;
   font-weight: normal;
   border-radius: 0.25rem;
-}
+} */
 
-.prose code:before,
+/* .prose code:before,
 .prose code:after {
   content: "";
-}
+} */
 
 .prose-xl {
   font-size: 1.25rem;
