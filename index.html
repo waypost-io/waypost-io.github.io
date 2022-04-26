@@ -9,7 +9,7 @@
     content="Waypost - An open-source feature flag management system that specializes in A/B Testing" />
   <meta name="title" property="og:title" content="Waypost" />
   <meta property="og:type" content="Website" />
-  <meta name="image" property="og:image" content="images/thumb.png" />
+  <meta name="image" property="og:image" content="images/thumb.jpg" />
   <meta name="description" property="og:description"
     content="Waypost - An open-source feature flag management system that specializes in A/B Testing" />
   <meta name="author" content="Waypost" />
@@ -536,7 +536,10 @@
           a certain period of time. The A/B test can be considered the most basic kind of <strong>randomized controlled
           experiment</strong>. In its simplest form, there are two treatments and one acts as the control for the other [1].
         </p>
-        <img src="./images/diagrams/2.1_A_and_b_features.png" alt="A and B features" width="300px">
+        <figure>
+          <img src="./images/diagrams/2.1_A_and_b_features.png" alt="A and B features" width="400px">
+          <figcaption>In an experiment, users are served either version A or version B of an application.</figcaption>
+        </figure>
         <h3 id="section-2-2">2.2 Interpreting Results</h3>
         <p>
           After an A/B test has finished running, one can analyze the results to make a data-driven decision. Every
@@ -549,7 +552,10 @@
           Solar Flair obtained a statistically significant increase in form completion rate with their new quote
           feature, then they could confidently roll out the new feature.
         </p>
-        <img src="./images/diagrams/2.2_AB_decision.png" alt="A/B decision" width="1000px">
+        <figure>
+          <img src="./images/diagrams/2.2_AB_decision.png" alt="A/B decision" width="1000px">
+          <figcaption>Interpreting results of an A/B test to decide whether to roll out a new feature.</figcaption>
+        </figure>
         <h3 id="section-2-3">2.3 Challenges of A/B Testing</h3>
         <p>
           As A/B testing requires a large amount of data to work, implementing A/B testing comes with several
@@ -610,7 +616,10 @@
           users get routed to one group vs. the other, can be set to any percentage the user wants, whether it be 50/50,
           10/90, etc.
         </p>
-        <img src="./images/diagrams/3.1_multiple_deployments.png" alt="multiple deployments">
+        <figure>
+          <img src="./images/diagrams/3.1_multiple_deployments.png" alt="multiple deployments">
+          <figcaption>Deploy two versions of an application and route users to one version or another.</figcaption>
+        </figure>
         <p>
           From here, if the new version proves to be an improvement, then the new version of the application is pushed
           to all the servers. If instead it has a negative effect on business metrics, then all servers with the new
@@ -655,7 +664,10 @@
           form’s submit button and wanted to see how each combination of the form and button affected user behavior,
           they’d need four total deployments.
         </p>
-        <img src="./images/diagrams/3.1.2_multivariate_testing.png" alt="multivariate testing" width="500px">
+        <figure>
+          <img src="./images/diagrams/3.1.2_multivariate_testing.png" alt="multivariate testing" width="500px">
+          <figcaption>To test two overlapping features using the “Multiple Deployment” strategy, there must be four total deployments!</figcaption>
+        </figure>
         <p>
           Regardless of whether the additional new features being tested are overlapping or not, more tests results in:
         </p>
@@ -693,7 +705,7 @@
         </p>
         <figure>
           <img src="./images/diagrams/3.2_flag_evaluation.png" alt="Flag evaluation">
-          <figcaption>An application using feature flags to serve multiple versions of a website</figcaption>
+          <figcaption>An application using feature flags to serve multiple versions of a website.</figcaption>
         </figure>
         <pre class="code-block"><code>  if (evaluateFlag('Quote Form')) {
     renderNewQuoteForm()
@@ -728,7 +740,12 @@
           version of the quote form and Jill will receive the new version. All this happens using just one version of
           Solar Flair’s website.
         </p>
-        <img src="./images/diagrams/3.2.1_jack_and_jill.png" alt="jack and jill comparison">
+        <figure>
+          <img src="./images/diagrams/3.2.1_jack_and_jill.png" alt="jack and jill comparison">
+          <figcaption>
+            Using an ID and hashing algorithm to evaluate flags allows Solar Flair to consistently serve a user the same version of their application on subsequent visits.
+          </figcaption>
+        </figure>
         <h4>3.2.2 - Using Feature Flags for A/B Testing</h4>
         <p>
           As mentioned earlier, two key challenges of implementing AB Testing are:
@@ -762,6 +779,7 @@
     "new quote": false,
     "other feature": true
   }</code></pre>
+        <figcaption>Example of a config file to store feature flags.</figcaption>
         <p>The trade-offs with the config file are:</p>
         <ul>
           <li>
@@ -775,8 +793,9 @@
         <h4>4.1.2 Database</h4>
         <figure>
           <img src="./images/diagrams/4.1.2_application_to_database.png" alt="applicaiton to database" width="300px">
+          <figcaption>Using a database to store flag data for an application.</figcaption>
           <img src="./images/diagrams/4.1.2_flag_in_database_table.png" alt="application to database table">
-          <figcaption>Flags table in the database</figcaption>
+          <figcaption>Flags table in the database.</figcaption>
         </figure>
         <p>
           A slightly better option for storing flag data is by using a database. With this configuration, Solar Flair’s
@@ -949,7 +968,7 @@
         </p>
         <figure>
           <img src="./images/diagrams/5.1_waypost_architecture.png" alt="Waypost architecture" width="800px">
-          <figcaption>Waypost Architecture</figcaption>
+          <figcaption>Waypost's Architecture</figcaption>
         </figure>
 
         <p>
@@ -1036,7 +1055,10 @@
             it. The exposure data can be used by developers to know when to stop an experiment.
           </li>
         </ul>
-        <img src="./images/diagrams/5.2_manager_app_responsibilities.png" alt="Manager App Responsibilities">
+        <figure>
+          <img src="./images/diagrams/5.2_manager_app_responsibilities.png" alt="Manager App Responsibilities">
+          <figcaption>The responsibilities of the Manager App’s Backend Server.</figcaption>
+        </figure>
         <p>
           The Manager App’s PostgreSQL <strong>Database</strong> stores persistent experiment and flag data. Some examples are:
         </p>
@@ -1055,7 +1077,10 @@
           The Flag Provider is a lightweight service that acts like a cache for flag data. It is responsible for
           providing up-to-date flag data to instances of the SDK.
         </p>
-        <img src="./images/diagrams/5.3_flag_provider.png" alt="Flag Provider">
+        <figure>
+          <img src="./images/diagrams/5.3_flag_provider.png" alt="Flag Provider">
+          <figcaption>The Flag Provider receives updated Flag Data from the Manager Application and sends it to the SDKs in real time.</figcaption>
+        </figure>
         <h4>5.3.1 Why make providing flags a separate service?</h4>
         <p>
           As mentioned previously, the SDK is responsible for evaluating flags, so it must have a copy of that flag
@@ -1086,7 +1111,10 @@
           flag data and is responsible for <strong>evaluating flags</strong>, thus it is also responsible for rendering two versions of a
           site. In addition, the SDK assigns users into <strong>treatment groups</strong> for experiments.
         </p>
-        <img src="./images/diagrams/5.4_SDK.png" alt="Waypost SDK">
+        <figure>
+          <img src="./images/diagrams/5.4_SDK.png" alt="Waypost SDK">
+          <figcaption>The SDK allows developers to render multiple versions of a website.</figcaption>
+        </figure>
         <p>
           The developer can use the SDK client’s <code>evaluateFlag(flagName)</code> method which will return a boolean value. This
           returned value is used in the app’s code to deliver one feature or another.
@@ -1097,6 +1125,7 @@
   } else {
     renderOldForm();
   }</code></pre>
+        <figcaption>What a feature flag looks like in an application using Waypost's SDK.</figcaption>
         <h4>5.4.1 How Feature Evaluation Works</h4>
         <p>There are three flag attributes the <code>evaluateFlag</code> takes into account when evaluating:</p>
         <ol>
@@ -1106,7 +1135,7 @@
         </ol>
         <figure>
           <img src="./images/diagrams/5.4.1_flag_evaluation_flow_chart.png" alt="Flag evaluation flow chart">
-          <figcaption>How the SDK evaluates feature flags</figcaption>
+          <figcaption>How the SDK evaluates feature flags.</figcaption>
         </figure>
         <p>
           The custom assignment and rollout evaluation takes an additional input, a <strong>unique identifier</strong> (often a user
@@ -1157,7 +1186,10 @@
           Whenever a change is made to a feature flag, the Manager App sends a <strong>webhook</strong> to the Flag Provider. This then
           triggers the Flag Provider to send the updated set of feature flags to the SDK via SSE.
         </p>
-        <img src="./images/diagrams/5.5_data_flow.gif" alt="Waypost data flow">
+        <figure>
+          <img src="./images/diagrams/5.5_data_flow.gif" alt="Waypost data flow">
+          <figcaption>Updated flag data is sent to the Flag Provider and then passed on to the SDKs.</figcaption>
+        </figure>
         <h3 id="section-5-6">5.6 How A/B Testing Works with Waypost</h3>
         <p>
           A/B Testing with Waypost involves three components, the Application (with the Waypost SDK within it), the
@@ -1176,7 +1208,10 @@
             analysis</strong>, and stores the results of the analysis in its own database.
           </li>
         </ul>
-        <img src="./images/diagrams/5.6_user_event_diagram.png" alt="User event data diagram">
+        <figure>
+          <img src="./images/diagrams/5.6_user_event_diagram.png" alt="User event data diagram">
+          <figcaption>How components communicate to facilitate A/B testing with Waypost.</figcaption>
+        </figure>
         <h4>5.6.1 Events DB</h4>
         <p>
           In order to perform an A/B test with Waypost, the developers must have a database (that we call the Events
@@ -1235,7 +1270,10 @@
           chart essentially depicting the sample size of each cohort over time. <strong>The purpose of this visualization is to
           help the developer understand the sample size and determine how much longer the experiment should run.</strong>
         </p>
-        <img src="./images/diagrams/5.6.4_exposures_graph.jpg" alt="Exposures Graph">
+        <figure>
+          <img src="./images/diagrams/5.6.4_exposures_graph.jpg" alt="Exposures Graph">
+          <figcaption>Example of the results of an experiment in the Manager App’s UI.</figcaption>
+        </figure>
         <h4>5.6.5 Statistics Pipeline</h4>
         <p>
           Once the developer is ready to view the results of their experiment, they can click on the “Refresh Results”
@@ -1256,7 +1294,10 @@
         <p>
           Information on how to interpret the statistical results are included in our <a href="https://waypost-io.github.io/documentation/">documentation site</a>.
         </p>
-        <img src="./images/diagrams/5.6.5_results_page.jpg" alt="Results page" width="1000px">
+        <figure>
+          <img src="./images/diagrams/5.6.5_results_page.jpg" alt="Results page" width="1000px">
+          <figcaption>Example of the results of an experiment in the Manager App’s UI.</figcaption>
+        </figure>
         <h2 id="section-6">6. Engineering Decisions and Trade-Offs</h2>
         <h3 id="section-6-1">6.1 Hosted vs. Self-Hosted</h3>
         <p>
@@ -1302,7 +1343,7 @@
         </p>
         <figure>
           <img src="./images/diagrams/6.2_collecting_user_event_data_2.png" alt="Collecting user event data 2" width="500px">
-          <figcaption>If Waypost collected the data and user events were already being collected, Waypost’s collection system would be redundant</figcaption>
+          <figcaption>If Waypost collected the data and user events were already being collected, Waypost’s collection system would be redundant.</figcaption>
         </figure>
         <p>
           With this in mind, we thought it would be advantageous to use the existing data instead of duplicating it by
@@ -1321,7 +1362,10 @@
           <strong>bottleneck</strong> that could have adverse effects on either the clients or the users interacting with the Manager
           App.
         </p>
-        <img src="./images/diagrams/6.3.1_backend_server_connected_to_SDK.png" alt="Backend connected to SDK">
+        <figure>
+          <img src="./images/diagrams/6.3.1_backend_server_connected_to_SDK.png" alt="Backend connected to SDK">
+          <figcaption>With this architecture, the Backend Server would be a bottleneck.</figcaption>
+        </figure>
         <p>
           Another consequence of this architecture is that <strong>clients interface directly with the server that hosts
           Waypost’s data</strong>. If a bad actor knew the IP address of the Manager App, it would be susceptible to attacks. The
@@ -1334,6 +1378,10 @@
           SDK clients is too large for just a single instance to handle. This also allows an organization to reduce
           latency to the SDK clients by creating new flag provider instances physically closer to their users.
         </p>
+        <figure>
+          <img src="./images/diagrams/6.3.1_scalability_flag_provider.png" alt="Flag Provider scalability">
+          <figcaption>Multiple instances of the Flag Provider can be created to handle a growing amount of users.</figcaption>
+        </figure>
         <h4>6.3.2 How should the Flag Provider and Manager App Communicate?</h4>
         <p>
           Due to these concerns, we decided to implement an intermediary service to provide feature flag data to the
@@ -1501,7 +1549,10 @@
             flags.
           </li>
         </ul>
-        <img src="./images/diagrams/6.5_seperate_stats_server.png" alt="seperate stats server">
+        <figure>
+          <img src="./images/diagrams/6.5_seperate_stats_server.png" alt="seperate stats server">
+          <figcaption>Waypost's architecture if statistical analysis is done on the Backend Server (left) vs its own server (right).</figcaption>
+        </figure>
         <h4>6.5.1 How often to run the pipeline</h4>
         <p>
           If the pipeline was run frequently, such as each time the page was loaded, the developer using Waypost could
