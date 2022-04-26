@@ -539,7 +539,7 @@
           the feature to their entire userbase</strong>, to <strong>remove it</strong>, or to <strong>continue to run more experiments</strong>. For example, if
           Solar Flair obtained a statistically significant increase in form completion rate with their new quote
           feature, then they could confidently roll out the new feature.</p>
-        <img src="./images/diagrams/2.2_AB_decision.png" alt="A/B decision">
+        <img src="./images/diagrams/2.2_AB_decision.png" alt="A/B decision" width="1000px">
         <h3 id="section-2-3">2.3 Challenges of A/B Testing</h3>
         <p>As A/B testing requires a large amount of data to work, implementing A/B testing comes with several
           challenges. There are two primary categories that the challenges of A/B testing fall under: engineering
@@ -782,7 +782,7 @@
           that is using feature flags and a PostgreSQL database for storing user event data, which will be referred to
           as the “Events DB”. For example, Solar Flair’s “Application” would be their web application that renders their
           website and their “Events DB” would be their existing user event database.</p>
-        <img src="./images/diagrams/5.1_waypost_architecture.png" alt="Waypost architecture">
+        <img src="./images/diagrams/5.1_waypost_architecture.png" alt="Waypost architecture" width="800px">
         <p><span class="underline">General Overview of the Components and their responsibilities:</span></p>
         <ul>
           <li>The <strong>Manager Application</strong> is responsible for managing feature flags and experiments.</li>
@@ -807,29 +807,29 @@
         <h4>Flags Dashboard</h4>
         <p>The Flags Dashboard displays all the flags being used by an application. From here you can toggle, delete,
           and create flags.</p>
-        <img src="./images/diagrams/5.2_flags_dashboard.gif" alt="flags Dashboard demo">
+        <img src="./images/diagrams/5.2_flags_dashboard.gif" alt="flags Dashboard demo" width="800px">
         <h4>Flag Details Page</h4>
         <p>To visit the Details Page for any flag, click on a flag’s name on the Flags Dashboard. On this page can view
           and edit the <strong>name</strong>, <strong>description</strong>, and <strong>rollout percentage</strong> of the flag.</p>
-        <img src="./images/diagrams/5.2_flags_detail_page.gif" alt="flag details page">
+        <img src="./images/diagrams/5.2_flags_detail_page.gif" alt="flag details page" width="800px">
         <p>This page also allows one to view and edit <strong>custom assignments</strong>. Custom assignments are used to ensure that a
           flag evaluates a certain way for a specific user. </p>
         <p>For example, an internal member testing Solar Flair’s new quote form would add a custom assignment so when
           they connect to Solar Flair’s website the SDK will always serve them the new version of the quote form.</p>
-        <img src="./images/diagrams/5.2_custom_assignments.gif" alt="Custom assignment form">
+        <img src="./images/diagrams/5.2_custom_assignments.gif" alt="Custom assignment form" width="800px">
         <h4>Create Experiment Form</h4>
         <p>From a Flag’s Details Page, one can create an experiment on a flag. The most important inputs are the
           <strong>percentage of users tested</strong> and the <strong>metrics</strong> being tested. Note, Waypost doesn’t stop experiments automatically,
           the <strong>duration</strong> input is only to help the experimenter plan.</p>
-        <img src="./images/diagrams/5.2_create_experiment_form.gif" alt="Create experiment form">
+        <img src="./images/diagrams/5.2_create_experiment_form.gif" alt="Create experiment form" width="800px">
         <h4>Flag Events Log</h4>
         <p>The Flag Events Log is used to keeping track of the changing state of one’s flags. It displays all <strong>flag
           events</strong>, like creation, deletion, toggling, and editing of a flag. This page is most useful for debugging,
           helping a developer make connections between bugs reported in their application and feature flags.</p>
-        <img src="./images/diagrams/5.2_event_log.gif" alt="Event Log">
+        <img src="./images/diagrams/5.2_event_log.gif" alt="Event Log" width="800px">
         <h4>SDK Key</h4>
         <p>This page is used to create an SDK key, which is used in SDK to Flag Provider communication.</p>
-        <img src="./images/diagrams/5.2_SDK_key.jpg" alt="SDK Key">
+        <img src="./images/diagrams/5.2_SDK_key.jpg" alt="SDK Key" width="700px">
         <p>The Manager App’s <strong>Backend Server</strong> is responsible for:</p>
         <ul>
           <li><strong>Managing API endpoints</strong> for supplying and editing flag and experiment data.</li>
@@ -940,7 +940,7 @@
             the schema shown below.</li>
         </ol>
         <img src="./images/diagrams/5.6.2_experiments_table.jpg" alt="Experiments table" width="600px">
-        <img src="./images/diagrams/5.6.1_database_connection_form.gif" alt="database connection form">
+        <img src="./images/diagrams/5.6.1_database_connection_form.gif" alt="database connection form" width="800px">
         <h4>5.6.3 Metrics</h4>
         <p>To add metrics, the developer must provide:</p>
         <ul>
@@ -948,7 +948,7 @@
           <li>The <strong>type</strong> of metric</li>
           <li>A <strong>query string</strong>, which is used to query the Events DB</li>
         </ul>
-        <img src="./images/diagrams/5.6.3_new_metric_page.gif" alt="New metrics page">
+        <img src="./images/diagrams/5.6.3_new_metric_page.gif" alt="New metrics page" width="800px">
         <p>After the Manager App confirms it can query the Events DB to obtain a metric, the developer can attach that
           metric to an experiment. Some common examples of metrics are:</p>
         <ul>
@@ -975,7 +975,7 @@
           <li><strong>Stores</strong> the results in the Waypost DB, which will be displayed in the UI as a table (shown below).</li>
         </ol>
         <p>Information on how to interpret the statistical results are included in our <a href="https://waypost-io.github.io/documentation/">documentation site</a>.</p>
-        <img src="./images/diagrams/5.6.5_results_page.jpg" alt="Results page">
+        <img src="./images/diagrams/5.6.5_results_page.jpg" alt="Results page" width="1000px">
         <h2 id="section-6">6. Engineering Decisions and Trade-Offs</h2>
         <h3 id="section-6-1">6.1 Hosted vs. Self-Hosted</h3>
         <p>To fully implement Waypost, a number of important engineering decisions had to made, one of which was whether
@@ -998,13 +998,13 @@
           <li>Let the <strong>organization collect the data</strong> and have Waypost query their database.</li>
           <li>Have <strong>Waypost collect the data</strong> and store it in its own database.</li>
         </ol>
-        <img src="./images/diagrams/6.2_collecting_user_event_data.png" alt="Collecting user event data">
+        <img src="./images/diagrams/6.2_collecting_user_event_data.png" alt="Collecting user event data" width="1000px">
         <p>To make the decision, we considered our target user.</p>
         <p>Like most companies interested in A/B testing, Solar Flair already has existing infrastructure to collect and
           store user event data. If Waypost was designed to collect user event data in order to run its statistical
           analysis, then an organization would need to add additional logging functions into their code to accommodate
           the second analytics platform. <strong>Waypost’s data collection system would be redundant</strong>.</p>
-        <img src="./images/diagrams/6.2_collecting_user_event_data_2.png" alt="Collecting user event data 2">
+        <img src="./images/diagrams/6.2_collecting_user_event_data_2.png" alt="Collecting user event data 2" width="500px">
         <p>With this in mind, we thought it would be advantageous to use the existing data instead of duplicating it by
           hosting our own analytics platform. By opting out of deploying an analytics platform with Waypost,
           organizations can remain in full control over their own event logging processes.</p>
@@ -1096,7 +1096,7 @@
           from the client to the server. In other words, we don’t need two-way communication. Another minor concern of
           using WebSocket is that it adds some development overhead. It typically requires more code than other methods,
           and it bars us from using useful HTTP functionality.</p>
-        <img src="./images/diagrams/6.4.1_websocket.png" alt="WebSocket">
+        <img src="./images/diagrams/6.4.1_websocket.png" alt="WebSocket" width="400px">
         <p>Server-Sent Events, or <strong>SSE</strong>, only allows for <strong>unidirectional communication</strong> between the server and a client.
           Whenever feature flag data is updated on the Flag Provider, new data is sent to all the clients that are
           connected. This approach minimizes latency, creates a real-time stream of feature flag data, and reduces the
