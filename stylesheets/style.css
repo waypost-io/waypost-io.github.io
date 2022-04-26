@@ -151,7 +151,7 @@ body {
   background-color: yellow;
 }
 
-b {
+b, strong {
   font-weight: bold;
 }
 
