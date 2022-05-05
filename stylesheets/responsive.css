@@ -1,5 +1,8 @@
 /* sm */
 @media (min-width: 640px) {
+  html, body {
+    overflow-x: visible;
+  }
   /* Header */
   #header {
     padding: 0 1.5rem;
