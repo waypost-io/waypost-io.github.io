@@ -424,7 +424,7 @@ figcaption {
 }
 
 #case-study-content > div {
-  padding: 4rem 1rem;
+  padding: 4rem 2rem;
 }
 
 #case-study-content .prose h1::before,
@@ -688,7 +688,7 @@ figcaption {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 4rem 1rem;
+  padding: 4rem 2rem;
   height: 100%;
 }
 
